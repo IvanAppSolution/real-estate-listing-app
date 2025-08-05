@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import SlideFeature from './SlideFeature.vue'
 // import { ProductService } from '@/service/ProductService'
 
 onMounted(() => {
@@ -14,10 +15,10 @@ const products = ref([
     description: 'Product Description',
     image: '/images/features/1.jpg',
     category: 'Apartment',
-    numBed: 2,
+    numBedroom: 2,
     numbBathroom: 2,
     garage: 1,
-    area: '1200 sq ft',
+    area: '1200 Sq Ft',
     yearBuilt: 2018,
     price: 135000,
     propertyType: 'Apartment',
@@ -38,7 +39,7 @@ const products = ref([
     description: 'Product Description',
     image: '/images/features/2.jpg',
     category: 'Apartment',
-    numBed: 2,
+    numBedroom: 2,
     numbBathroom: 2,
     garage: 1,
     area: '1200 sq ft',
@@ -62,7 +63,7 @@ const products = ref([
     description: 'Product Description',
     image: '/images/features/3.jpg',
     category: 'Apartment',
-    numBed: 2,
+    numBedroom: 2,
     numbBathroom: 2,
     garage: 1,
     area: '1200 sq ft',
@@ -86,7 +87,7 @@ const products = ref([
     description: 'Product Description',
     image: '/images/features/4.jpg',
     category: 'Apartment',
-    numBed: 2,
+    numBedroom: 2,
     numbBathroom: 2,
     garage: 1,
     area: '1200 sq ft',
@@ -160,7 +161,7 @@ const getSeverity = (status: string) => {
                 </div>
             
             </div>
-            <div class="item-title font-medium font-semibold">{{ slotProps.data.name }}</div>
+            <div class="item-title font-medium font-semibold"><SlideFeature :feature="slotProps.data" /></div>
         </div>
         </a>
       </template>
@@ -179,7 +180,7 @@ const getSeverity = (status: string) => {
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  height: 300px;
+  /* height: 300px; */
 }
 
 .item-container {
@@ -190,11 +191,12 @@ const getSeverity = (status: string) => {
 }
 
 .item-title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #333;
   text-decoration: none;
   padding: 0.5rem;
   flex-grow: 1;
+  margin-top: 0.5rem;
 }
 
 .item-tag {

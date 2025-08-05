@@ -25,6 +25,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SalesTrendWidget: typeof import('./src/components/dashboard/SalesTrendWidget.vue')['default']
+    SlideFeature: typeof import('./src/components/home/SlideFeature.vue')['default']
     StatsWidget: typeof import('./src/components/dashboard/StatsWidget.vue')['default']
     Tag: typeof import('primevue/tag')['default']
     TopbarWidget: typeof import('./src/components/home/TopbarWidget.vue')['default']

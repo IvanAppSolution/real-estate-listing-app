@@ -16,7 +16,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@fortawesome/vue-fontawesome": "^3.1.1",
     "@primeuix/themes": "^1.2.2",
     "chart.js": "^4.4.8",
     "motion": "^12.23.12",
@@ -25,7 +24,8 @@
     "primevue": "^4.3.6",
     "tailwindcss-primeui": "^0.6.1",
     "vue": "^3.5.18",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue-unicons": "^3.3.1"
   },
   "devDependencies": {
     "@primevue/auto-import-resolver": "^4.3.7",

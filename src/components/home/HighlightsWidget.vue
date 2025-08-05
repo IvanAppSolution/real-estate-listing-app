@@ -24,21 +24,21 @@
           <div class="box" style="height: 250px; background-image: url('/images/highlights/2.jpg')">
             <a href="/find=studio" class="hover-effect-flat"></a>            
              <div class="box-desc">
-                <h3>Studio3</h3>
+                <h3>Apartment</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 250px; background-image: url('/images/highlights/3.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Single Family Home</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 250px; background-image: url('/images/highlights/4.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Shop</h3>
                 <p>More details</p>
               </div>
           </div>
@@ -49,14 +49,14 @@
           <div class="box" style="height: 400px; background-image: url('/images/highlights/5.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Office</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 360px; background-image: url('/images/highlights/6.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Villa</h3>
                 <p>More details</p>
               </div>
           </div>
