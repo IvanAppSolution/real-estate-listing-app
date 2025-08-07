@@ -145,6 +145,35 @@
         "email": "bob@example.com",
         "phone": "321-654-0987"
       }
+    }, 
+    {
+      "id": "1005",
+      "code": "xyz789qwe",
+      "name": "Yellow Watch",
+      "description": "Product Description",
+      "image": "/images/features/6.jpg",
+      "category": "Apartment",
+      "numBedroom": 1,
+      "numBathroom": 1,
+      "garage": 0,
+      "area": "900 Sq Ft",
+      "yearBuilt": 2018,
+      "price": 120000,
+      "propertyType": "Apartment",
+      "propertyStatus": "For Sale",
+      "inventoryStatus": "INSTOCK",     
+      "rating": 4,
+      "address": {
+        "street": "987 Cedar St",
+        "city": "Seattle",
+        "state": "WA",
+        "zip": "98101"
+      },
+      "contact": {
+        "name": "Charlie White",
+        "email": "charlie@example.com",
+        "phone": "555-987-6543"
+      }
     }
   ]
 }

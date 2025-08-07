@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted  } from 'vue';
-import { useRoute, RouterLink } from 'vue-router';
-import axios from 'axios';
+import { ref, reactive  } from 'vue';
+import { useRoute } from 'vue-router';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-import type { Job, List } from '../types';
-import { Galleria, RadioButton } from 'primevue'; 
+import type { List } from '../types';
+import { Galleria } from 'primevue'; 
 import listsData from '../lists.json';
 import pic1 from '@/assets/images/1/1.jpg';
 import pic2 from '@/assets/images/1/2.jpg';
