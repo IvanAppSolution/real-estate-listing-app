@@ -6,22 +6,13 @@ import Aura from '@primeuix/themes/aura'
 import ToastService from 'primevue/toastservice'
 import { ConfirmationService } from 'primevue'
 import StyleClass from 'primevue/styleclass'
-
-// Font Awesome imports
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// import { fas } from '@fortawesome/free-solid-svg-icons'
-// import { far } from '@fortawesome/free-regular-svg-icons'
-// import { fab } from '@fortawesome/free-brands-svg-icons'
-
-// Add icons to the library
-// library.add(fas, far, fab)
-
-
 import './assets/demo/demo.scss'
 import './assets/tailwind.css'
 import './assets/styles.scss'
 import './assets/main.css'
+import Unicon from 'vue-unicons';
+import { uniMusic, uniCarWash, uniBed, uniRuler, uniBath, uniCarSideview, uniEstate, uniCalendarAlt } from 'vue-unicons/dist/icons';
+Unicon.add([uniMusic, uniCarWash, uniBed, uniRuler, uniBath, uniCarSideview, uniEstate, uniCalendarAlt]);
 
 
 const app = createApp(App)
@@ -35,6 +26,7 @@ app.use(PrimeVue, {
     },
   },
 })
+app.use(Unicon)
 app.use(ToastService)
 app.use(ConfirmationService)
 app.directive('styleclass', StyleClass)

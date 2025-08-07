@@ -1,8 +1,9 @@
 # basic-vue-ts
 
-Real Estate List Application - A Vue.js 3 project using Primevue theme
+Real Estate List Application - A Vue 3/Tyscript project using Primevue theme
 
 ## Libraries
+vite
 motion
 tailwind
 

@@ -4,10 +4,11 @@
       <div class="column">
         <div class="box-wrapper">
           <div class="box" style="height: 330px">
-            <h2 class="">Sell or rent your home faster</h2>
+            <h2 class="">Rent or list your home faster</h2>
             <p class="houzez_section_subtitle">
               Whether you are the homeowner or the listing agent, you can take advantage.
             </p>
+            <p>Whether you’re searching for apartments, condos, or rental homes, we make it easy to find a place you’ll love.</p>
           </div>
           <div class="box" style="height: 430px; background-image: url('/images/highlights/1.jpg')">
             <a href="#" class="hover-effect-flat"></a>
@@ -24,21 +25,21 @@
           <div class="box" style="height: 250px; background-image: url('/images/highlights/2.jpg')">
             <a href="/find=studio" class="hover-effect-flat"></a>            
              <div class="box-desc">
-                <h3>Studio3</h3>
+                <h3>Apartment</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 250px; background-image: url('/images/highlights/3.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Single Family Home</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 250px; background-image: url('/images/highlights/4.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Shop</h3>
                 <p>More details</p>
               </div>
           </div>
@@ -49,14 +50,14 @@
           <div class="box" style="height: 400px; background-image: url('/images/highlights/5.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Office</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 360px; background-image: url('/images/highlights/6.jpg')">
             <a href="#" class="hover-effect-flat"></a>
               <div class="box-desc">
-                <h3>Studio</h3>
+                <h3>Villa</h3>
                 <p>More details</p>
               </div>
           </div>

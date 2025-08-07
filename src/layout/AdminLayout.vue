@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { Toast } from 'primevue'
-import AppFooter from './AppFooter.vue'
-import AppTopbar from './AppTopbar.vue'
 import { RouterView } from 'vue-router'
+import AdminTopbar from './AdminTopbar.vue'
+import AdminFooter from './AdminFooter.vue'
 </script>
 
 <template>
   <div class="layout-container">
-    <AppTopbar />
+    <AdminTopbar />
     <div class="layout-grid">
       <RouterView />
     </div>
-    <AppFooter />
+    <AdminFooter />
   </div>
   <Toast />
 </template>

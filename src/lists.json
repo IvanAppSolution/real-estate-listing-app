@@ -1,0 +1,150 @@
+{
+  "lists": [
+    {
+      "id": "1000",
+      "code": "f230fh0g3",
+      "name": "Bamboo Watch",
+      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
+      "image": "/images/features/1.jpg",
+      "category": "Apartment",
+      "numBedroom": 2,
+      "numBathroom": 2,
+      "garage": 1,
+      "area": "1200 Sq Ft",
+      "yearBuilt": 2018,
+      "price": 135000,
+      "propertyType": "Apartment",
+      "propertyStatus": "For Sale",
+      "inventoryStatus": "INSTOCK",
+      "rating": 5,
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d380511.5847334556!2d-88.06151389609147!3d41.83375100458065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2c3cd0f4cbed%3A0xafe0a6ad09c0c000!2sChicago%2C%20IL%2C%20USA!5e0!3m2!1sen!2sph!4v1754550524716!5m2!1sen!2sph",
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "state": "NY",
+      "zip": "10001"
+      },
+      "contact": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "123-456-7890"
+      }
+    },
+    {
+      "id": "1001",
+      "code": "nvklal433",
+      "name": "Black Watch",
+      "description": "Product Description",
+      "image": "/images/features/2.jpg",
+      "category": "House",
+      "numBedroom": 3,
+      "numBathroom": 2,
+      "garage": 2,
+      "area": "1500 Sq Ft",
+      "yearBuilt": 2020,
+      "price": 250000,
+      "propertyType": "House",
+      "propertyStatus": "For Rent",
+      "inventoryStatus": "INSTOCK",
+      "rating": 4.5,
+      "address": {
+        "street": "456 Elm St",
+        "city": "Los Angeles",
+        "state": "CA",
+        "zip": "90001"
+      },
+      "contact": {
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "phone": "987-654-3210"
+      }
+    },
+    {
+      "id": "1002",
+      "code": "zz21cz3c1",
+      "name": "Red Watch",
+      "description": "Product Description",
+      "image": "/images/features/3.jpg",
+      "category": "Condo",
+      "numBedroom": 1,
+      "numBathroom": 1,
+      "garage": 0,
+      "area": "800 Sq Ft",
+      "yearBuilt": 2019,
+      "price": 95000,
+      "propertyType": "Condo",
+      "propertyStatus": "For Sale",
+      "inventoryStatus": "INSTOCK",     
+      "rating": 4,
+      "address": {
+        "street": "789 Oak St",
+        "city": "Chicago",
+        "state": "IL",
+        "zip": "60601"
+      },
+      "contact": {
+        "name": "Alice Johnson",
+        "email": "alice@example.com",
+        "phone": "555-123-4567"
+      }
+    },
+    {
+      "id": "1003",
+      "code": "po34po4p0",
+      "name": "Green Watch",
+      "description": "Product Description",
+      "image": "/images/features/4.jpg",
+      "category": "Villa",
+      "numBedroom": 4,
+      "numBathroom": 3,
+      "garage": 3,
+      "area": "2500 Sq Ft",
+      "yearBuilt": 2021,
+      "price": 450000,
+      "propertyType": "Villa",
+      "propertyStatus": "For Sale",
+      "inventoryStatus": "INSTOCK",     
+      "rating": 5,
+      "address": {
+        "street": "321 Pine St",
+        "city": "Miami",
+        "state": "FL",
+        "zip": "33101"
+      },
+      "contact": {
+        "name": "Bob Brown",
+        "email": "bob@example.com",
+        "phone": "321-654-0987"
+      }
+    },
+    {
+      "id": "1004",
+      "code": "qwe123asd",
+      "name": "Blue Watch",
+      "description": "Product Description",
+      "image": "/images/features/5.jpg",
+      "category": "Townhouse",
+      "numBedroom": 2,
+      "numBathroom": 2,
+      "garage": 1,
+      "area": "1400 Sq Ft",
+      "yearBuilt": 2017,
+      "price": 180000,
+      "propertyType": "Townhouse",
+      "propertyStatus": "For Rent",
+      "inventoryStatus": "INSTOCK",     
+      "rating": 4.5,
+      "address": {
+        "street": "654 Maple St",
+        "city": "Houston",
+        "state": "TX",
+        "zip": "77001"
+      },
+      "contact": {
+        "name": "Bob Brown",
+        "email": "bob@example.com",
+        "phone": "321-654-0987"
+      }
+    }
+  ]
+}
