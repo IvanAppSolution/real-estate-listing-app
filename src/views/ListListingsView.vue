@@ -1,15 +1,13 @@
 <script setup lang="ts" name="ListListings">
-import { onMounted, reactive, ref } from 'vue';
-import axios from 'axios';
+import { onMounted, reactive } from 'vue';
+// import axios from 'axios';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import { RouterLink } from 'vue-router';
 import { Button, IconField, InputIcon, InputText } from 'primevue';
-import type { Job, List } from '../types';
-import ListListing from '@/components/list/listListing.vue';
+import type { List } from '../types';
 import listsData from '../lists.json';
 import Card from '@/components/list/Card.vue';
-
-// const lists = ref(listsData.lists); 
+ 
 
  defineProps({
     limit: Number,
@@ -37,7 +35,7 @@ const state = reactive({
   try {
     state.isLoading = true;
     await wait(500);
-    const response = await axios.get('http://localhost:5000/jobs');
+    // const response = await axios.get('http://localhost:5000/jobs');
     // state.jobs = response.data;     
 
   } catch (error) {
@@ -59,11 +57,11 @@ const state = reactive({
           <InputText placeholder="Search" />
           <Button label="Search" class="!ml-2" />
         </IconField>
-        <div v-if="state.lists.length" class="text-gray-500 py-6">Results for :</div>
+        <div v-if="state.lists.length" class="text-gray-500 py-6 hidden">Results for :</div>
       </div>
       
       <div v-if="state.isLoading" class="text-center text-gray-500 py-6"><PulseLoader /></div>
-      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
         <Card v-for="(list, i) in state.lists.slice(0, limit || state.lists.length)" :key="i" :list="list" />      </div>
     </div>
   </section>

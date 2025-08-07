@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import HighlightsWidget from '@/components/home/HighlightsWidget.vue'
 import HeroWidget from '@/components/home/HeroWidget.vue'
-import HighlightsWidget2 from '@/components/home/HighlightsWidget2.vue'
 import PublicFooter from '@/layout/PublicFooter.vue'
 import FeaturesWidget from '@/components/home/FeaturesWidget.vue'
+import HighlightExtraWidget from '@/components/home/HighlightExtraWidget.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import FeaturesWidget from '@/components/home/FeaturesWidget.vue'
       <HeroWidget />
       <FeaturesWidget />
       <HighlightsWidget />
-      <HighlightsWidget2 />
+      <HighlightExtraWidget />
       <PublicFooter />
     </div>
   </div>

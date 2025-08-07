@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { Feature } from '@/types';
 
-defineProps({
-  feature: {
-    type: Object as () => Feature,
-    required: true
-  }
-})
- 
+const props = defineProps<{
+  feature: Feature
+}>();
+
+console.log('Feature:', props.feature);
  
 </script>
 
