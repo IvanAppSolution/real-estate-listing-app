@@ -1,6 +1,5 @@
-# basic-vue-ts
-
-Real Estate List Application - A Vue 3/Tyscript project using Primevue theme
+# Real Estate Listing Application
+A VueJs-3/Tyscript project using Primevue theme
 
 ## Libraries
 vite
