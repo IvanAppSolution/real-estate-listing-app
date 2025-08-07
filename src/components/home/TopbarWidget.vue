@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { Button } from 'primevue'
-
-function smoothScroll(id: string) {
-  document.body.click()
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-  }
-}
+import { RouterLink } from 'vue-router'
+ 
 </script>
 
 <template>
@@ -18,10 +9,10 @@ function smoothScroll(id: string) {
     class="py-6 px-6 mx-6 md:mx-12 lg:mx-20 lg:px-20 flex items-center justify-between relative lg:static z-20"
   >
     <!-- <div class="flex items-center justify-between z-20"> -->
-    <a class="flex items-center z-20" href="#">
+    <RouterLink to="/" class="flex items-center z-20" >
       <img src="/images/logo.png" alt="Logo" class="" />
       <span class="text-surface-0 font-medium text-2xl leading-normal">Urban Stay</span>
-    </a>
+    </RouterLink>
     <Button
       class="lg:!hidden"
       text
@@ -38,7 +29,7 @@ function smoothScroll(id: string) {
     >
       <i class="pi pi-bars !text-2xl"></i>
     </Button>
-    <!-- </div> -->
+
     <div
       class="items-center dark:bg-surface-900 grow justify-between md:hidden lg:flex absolute lg:static w-1/2 left-0 top-full px-12 lg:px-0 z-20 rounded-border"
     >
@@ -46,26 +37,32 @@ function smoothScroll(id: string) {
         class="ml-20 list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-8"
       >
         <li>
-          <a @click="smoothScroll('hero')" class="px-0 py-4 text-surface-0 font-medium text-xl">
-            <span>Home</span>
-          </a>
-        </li>
-        <li>
-          <a @click="smoothScroll('features')" class="px-0 py-4 text-surface-0 font-medium text-xl">
-            <span>Features</span>
-          </a>
-        </li>
-        <li>
-          <a
-            @click="smoothScroll('highlights')"
+          <RouterLink
+            to="/"
             class="px-0 py-4 text-surface-0 font-medium text-xl"
           >
-            <span>Highlights</span>
-          </a>
+            <span>Home</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink
+            to="/listings"
+            class="px-0 py-4 text-surface-0 font-medium text-xl"
+          >
+            <span>Listings</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink
+            to="/listings"
+            class="px-0 py-4 text-surface-0 font-medium text-xl"
+          >
+            <span>Features</span>
+          </RouterLink>
         </li>
       </ul>
       <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">
-        <Button label="Login" text as="router-link" to="/login" rounded></Button>
+        <Button label="Login" text as="router-link" to="/login" style="color:white;" rounded></Button>
         <Button label="Register" to="/login" rounded></Button>
       </div>
     </div>

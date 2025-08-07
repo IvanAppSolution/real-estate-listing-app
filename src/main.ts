@@ -11,8 +11,8 @@ import './assets/tailwind.css'
 import './assets/styles.scss'
 import './assets/main.css'
 import Unicon from 'vue-unicons';
-import { uniMusic, uniCarWash, uniBed, uniRuler, uniBath } from 'vue-unicons/dist/icons';
-Unicon.add([uniMusic, uniCarWash, uniBed, uniRuler, uniBath]);
+import { uniMusic, uniCarWash, uniBed, uniRuler, uniBath, uniCarSideview, uniEstate, uniCalendarAlt } from 'vue-unicons/dist/icons';
+Unicon.add([uniMusic, uniCarWash, uniBed, uniRuler, uniBath, uniCarSideview, uniEstate, uniCalendarAlt]);
 
 
 const app = createApp(App)

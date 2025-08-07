@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="footer-container">
-      <div class="footer-copyright">202X PrimeVue.</div>
+      <div class="footer-copyright">Ivan Alcuino @2025</div>
       <div class="footer-links">
         <a
           href="https://twitter.com/primevue"

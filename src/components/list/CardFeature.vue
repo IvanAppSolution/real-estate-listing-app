@@ -38,12 +38,20 @@ defineProps({
         </unicon> {{ feature.area }}
     </li>
   </ul>
+  <div class="address">{{ feature.address.street }}, {{ feature.address.city }}  </div>
 </template>
 
 <style scoped>
 .unicon {
   vertical-align: middle;
   margin-right: 0.5rem;
+}
+
+.address {
+  font-size: 0.875rem;
+  color: #666;
+  margin-top: 0.5rem;
+  padding-left: 15px;
 }
 </style>
 

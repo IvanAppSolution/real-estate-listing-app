@@ -4,10 +4,11 @@
       <div class="column">
         <div class="box-wrapper">
           <div class="box" style="height: 330px">
-            <h2 class="">Sell or rent your home faster</h2>
+            <h2 class="">Rent or list your home faster</h2>
             <p class="houzez_section_subtitle">
               Whether you are the homeowner or the listing agent, you can take advantage.
             </p>
+            <p>Whether you’re searching for apartments, condos, or rental homes, we make it easy to find a place you’ll love.</p>
           </div>
           <div class="box" style="height: 430px; background-image: url('/images/highlights/1.jpg')">
             <a href="#" class="hover-effect-flat"></a>
