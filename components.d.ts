@@ -20,6 +20,8 @@ declare module 'vue' {
     HighlightExtraWidget: typeof import('./src/components/home/HighlightExtraWidget.vue')['default']
     HighlightsWidget: typeof import('./src/components/home/HighlightsWidget.vue')['default']
     InputText: typeof import('primevue/inputtext')['default']
+    ListForm: typeof import('./src/components/list/ListForm.vue')['default']
+    ListFormComponent: typeof import('./src/components/list/ListFormComponent.vue')['default']
     ListListing: typeof import('./src/components/list/ListListing.vue')['default']
     Message: typeof import('primevue/message')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
