@@ -74,7 +74,10 @@ export interface List {
     contact_email: string;
     contact_phone: string;
     contact_others: string;
+    address: object;
+    contact: object;
  }
+ 
 export interface Feature {
   id: string;
   name: string;
@@ -87,7 +90,9 @@ export interface Feature {
     street: string;
     city: string;
     state: string;
+    country: string;
     zip: string;
+    mapUrl: string;
   },
 }
 
@@ -119,6 +124,8 @@ export function mapToInitialValues(list: List) {
     contact_others: list.contact.others || "",
     images: list.images || [],
     rating: list.rating || 0,
+    address: {},
+    contact: {}
   };
 }
 
