@@ -6,7 +6,7 @@ import { Carousel } from 'primevue';
 import Card from '../list/Card.vue';
 
 const state = reactive({
-  lists: listsData.lists as List[],
+  lists: listsData.lists,
   isLoading: false,
  })
 
