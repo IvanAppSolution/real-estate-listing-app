@@ -4,6 +4,8 @@ import HeroWidget from '@/components/home/HeroWidget.vue'
 import PublicFooter from '@/layout/PublicFooter.vue'
 import FeaturesWidget from '@/components/home/FeaturesWidget.vue'
 import HighlightExtraWidget from '@/components/home/HighlightExtraWidget.vue'
+import TopbarWidget from '@/components/home/TopbarWidget.vue'
+
 </script>
 
 <template>

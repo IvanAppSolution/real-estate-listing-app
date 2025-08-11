@@ -8,9 +8,7 @@ import PublicFooter from './PublicFooter.vue';
 <template>
   <div>
     <PublicTopbar />
-    <div class="py-6 mx-6 md:mx-12 lg:mx-12 lg:px-6">
-      <RouterView />
-    </div>
+    <RouterView />
     <PublicFooter />
   </div>
   <Toast />
