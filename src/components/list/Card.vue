@@ -3,19 +3,19 @@ import { RouterLink } from 'vue-router';
 import type { List } from '../../types';
 import CardFeature from './CardFeature.vue';
 
-defineProps({
+const props = defineProps({
   list: Object as () => List
 }) 
-
+console.log('List:', props.list);
 </script>
 
 <template>
-  <RouterLink :to="`/listings/${list?.id}`" class="hover-effect">
+  <RouterLink :to="`/listings/${list?._id}`" class="hover-effect">
     <div class="carousel-item dark:border-surface-700 m-2">
       <div class="item-container">
         <div class="img-container mx-auto">
           <img
-            :src="list?.image"
+            :src="list?.images[0] || 'https://via.placeholder.com/300'"
             :alt="list?.name"
             class="item-img w-full"
               />                

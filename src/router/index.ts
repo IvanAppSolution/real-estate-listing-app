@@ -1,29 +1,17 @@
-import AdminLayout from '@/layout/AdminLayout.vue'
 import PublicLayout from '@/layout/PublicLayout.vue'
-import AddJobView from '@/views/AddJobView.vue'
 import HomeView from '@/views/HomeView.vue'
-import JobView from '@/views/ListView.vue'
+import ListView from '@/views/ListView.vue'
 import ListListingsView from '@/views/ListListingsView.vue'
 import LoginView from '@/views/LoginView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import EditListView from '@/views/EditListView.vue'
+import AddListView from '@/views/AddListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/admin',
-      component: AdminLayout,
-      children: [
-        {
-          path: '/admin',
-          name: 'dashboard',
-          component: () => import('@/views/DashboardView.vue'),
-        },
-      ],
-    },
     {
       path: '/',
       name: 'home',
@@ -51,17 +39,17 @@ const router = createRouter({
         },
         {
           path: ':id',
-          name: 'job-details',
-          component: JobView,
+          name: 'list-details',
+          component: ListView,
         },
         {
           path: 'add',
-          name: 'add-job',
-          component: AddJobView
+          name: 'add-list',
+          component: AddListView
         },
         {
           path: 'edit/:id',
-          name: 'edit-job',
+          name: 'edit-list',
           component: EditListView
         }
       ],

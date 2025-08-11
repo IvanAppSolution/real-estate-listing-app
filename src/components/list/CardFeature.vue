@@ -36,7 +36,7 @@ console.log('Feature:', props.feature);
         </unicon> {{ feature.area }}
     </li>
   </ul>
-  <div class="address">{{ feature.address.street }}, {{ feature.address.city }}  </div>
+  <div class="address">{{ feature.address.street }}, {{ feature.address.city }}, {{ feature.address.state }}  </div>
 </template>
 
 <style scoped>

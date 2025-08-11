@@ -6,28 +6,29 @@
       "name": "Bamboo Watch",
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
       "image": "/images/features/1.jpg",
-      "category": "Apartment",
       "numBedroom": 2,
       "numBathroom": 2,
       "garage": 1,
       "area": "1200 Sq Ft",
       "yearBuilt": 2018,
-      "price": 135000,
+      "price": 1500,
+      "category": "Residential",
       "propertyType": "Apartment",
       "propertyStatus": "For Sale",
       "inventoryStatus": "INSTOCK",
-      "rating": 5,
-      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d380511.5847334556!2d-88.06151389609147!3d41.83375100458065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2c3cd0f4cbed%3A0xafe0a6ad09c0c000!2sChicago%2C%20IL%2C%20USA!5e0!3m2!1sen!2sph!4v1754550524716!5m2!1sen!2sph",
+      "rating": 5,      
     "address": {
       "street": "123 Main St",
       "city": "New York",
       "state": "NY",
-      "zip": "10001"
+      "zip": "10001",
+      "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d380511.5847334556!2d-88.06151389609147!3d41.83375100458065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2c3cd0f4cbed%3A0xafe0a6ad09c0c000!2sChicago%2C%20IL%2C%20USA!5e0!3m2!1sen!2sph!4v1754550524716!5m2!1sen!2sph"
       },
       "contact": {
         "name": "John Doe",
         "email": "john@example.com",
-        "phone": "123-456-7890"
+        "phone": "123-456-7890",
+        "mobile": "123-456-7890"
       }
     },
     {

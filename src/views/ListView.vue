@@ -1,28 +1,27 @@
 <script setup lang="ts">
-import { ref, reactive  } from 'vue';
+import { ref, reactive, onMounted  } from 'vue';
 import { useRoute } from 'vue-router';
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+// import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import type { List } from '../types';
-import { Galleria } from 'primevue'; 
+import { Galleria, ProgressSpinner } from 'primevue'; 
 import listsData from '../lists.json';
 import pic1 from '@/assets/images/1/1.jpg';
 import pic2 from '@/assets/images/1/2.jpg';
 import pic3 from '@/assets/images/1/3.jpg';
 import pic4 from '@/assets/images/1/4.jpg';
 import pic5 from '@/assets/images/1/5.jpg';
+import axios from 'axios';
+import router from '@/router';
+ 
  
 
-defineProps({
-
-})
-
 const route = useRoute();
-const listId = route.params.id;
+const id = route.params.id;
 
 const state = reactive({
-  list: listsData.lists[0] as List,
+  list: {} as List,
   isLoading: false,
-
+  isReady: false
 })
 
 const images = ref([
@@ -100,23 +99,41 @@ const responsiveOptions = ref([
 //      state.isLoading = false;
 //   }
 //  })
+onMounted (async () => {
+  try {
+    const response = await axios.get(`/api/list/${id}`);
+    console.log('response.data: ', response.data.data);
+    Object.assign(state.list, response.data.data);
+    state.isReady = true;
+    // Object_assign(address, response.data.data.address);
+    // Object_assign(contact, response.data.data.contact);
+    // initialValues_value = response.data.data;
+    // initialValues_value.address = initialValues_value.address;
+    // console.log('initialValues: ', initialValues);
+  } catch(error) {
+    console.log('error', error)
+  }
+})
 
 
 </script>
 
 <template>
-  <section  v-if="!state.isLoading" class="">
+  <section  class="">
     <div class="container m-auto py-6 px-6 md:mx-12 lg:mx-12 lg:px-6">
-      <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
+      <div v-if="!state.isReady" class="flex justify-center items-center h-64">
+        <ProgressSpinner class="w-64 m-auto" />
+      </div>
+      <div v-else class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
         <div class="w-full">
 
-        <Galleria class="" :value="images" :responsiveOptions="responsiveOptions"  thumbnailsPosition="right" containerStyle="width: 100%; max-height: 500px;" verticalThumbnailViewPortHeight="85%"    :showItemNavigators="true"   :circular="true">
+        <Galleria class="" :value="state.list.images" :responsiveOptions="responsiveOptions"  thumbnailsPosition="right" containerStyle="width: 100%; max-height: 500px;" verticalThumbnailViewPortHeight="85%"    :showItemNavigators="true"   :circular="true">
             <template #item="slotProps">
-                <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block" />
+                <img :src="slotProps.item" style="width: 100%; display: block" />
             </template>
             <template #thumbnail="slotProps">
                 <div class="grid gap-4 justify-center">
-                    <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block;" />
+                    <img :src="slotProps.item" style="width: 100%; display: block;" />
                 </div>
             </template>
         </Galleria>
@@ -125,8 +142,8 @@ const responsiveOptions = ref([
           <div class="div-left w-2/3 pr-4">
             <div class="info-wrap w-full mb-4">
               <h2 class="text-2xl font-bold mb-2">${{ state.list.price }} / month</h2>
-              <p> {{ state.list.address.street }}, {{ state.list.address.city }} </p>
-  
+              <p> {{ state.list.address.street }}, {{ state.list.address.city }}, {{ state.list.address.state }} </p>
+
             </div> 
             <ul class="feature-list list-none p-0 m-0 mb-4 flex justify-start">
               <li class="flex">
@@ -211,7 +228,7 @@ const responsiveOptions = ref([
           <div class="div-right w-1/3 " >
             <div class="map-wrapper">
               <iframe 
-                :src="state.list.mapUrl" 
+                :src="state.list.address.mapUrl" 
                 width="100%" height="100%" style="border:0;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
               </iframe>
             </div>
@@ -233,16 +250,16 @@ const responsiveOptions = ref([
             <p>Phone: {{ state.list.contact.phone }}</p>
           </div>
           <div class="contact-btns mt-4">
-          <Button
-            as="a"
+          <Button 
             severity="info"
-            href="#"
             class="secondary mr-3"
+            disabled
             >Request a tour
           </Button>
           <Button
             severity="secondary"
             class="w-32"
+            disabled
           >
             Message
           </Button>
@@ -258,23 +275,21 @@ const responsiveOptions = ref([
           <Button
             as="a"
             severity="secondary"
-            :href="`/listings/edit/${listId}`"
-            class="secondary mr-2"
+            :href="`/listings/edit/${id}`"
+            class="secondary w-64 mr-2"
             >Edit Listing
           </Button>
           <Button
-            severity="danger"
-          >
-            Delete Listing
+            @click="router.back()"
+            severity="secondary"
+            class="w-64">
+            Cancel
           </Button>
         </div>
       </div>
     </div>
     
   </section>
-  <div v-else class="text-center mt-16">
-    <PulseLoader />
-  </div>
 </template>
 
 <style scoped>
@@ -302,5 +317,12 @@ const responsiveOptions = ref([
 
   .contact-info p {
     margin-bottom: 0.4rem;
+  }
+
+  .p-galleria-thumbnail img {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover;
+    overflow: hidden;
   }
 </style>

@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div
-    class="py-6 px-6 mx-6 md:mx-12 lg:mx-20 lg:px-20 flex items-center justify-between relative lg:static z-20"
+    class="py-6 px-6 mx-6 md:mx-12 lg:mx-12 lg:px-16 flex items-center justify-between relative lg:static z-20"
   >
     <!-- <div class="flex items-center justify-between z-20"> -->
     <RouterLink to="/" class="flex items-center z-20" >
@@ -31,7 +31,7 @@ import { RouterLink } from 'vue-router'
     </Button>
 
     <div
-      class="items-center dark:bg-surface-900 grow justify-between md:hidden lg:flex absolute lg:static w-1/2 left-0 top-full px-12 lg:px-0 z-20 rounded-border"
+      class="menu-content lg:bg-transparent sm:bg-menu-color items-center dark:bg-surface-900 grow justify-between hidden lg:flex absolute lg:static w-3/4 left-0 top-full px-12 lg:px-0 z-20 rounded-border"
     >
       <ul
         class="ml-20 list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-8"
@@ -68,3 +68,10 @@ import { RouterLink } from 'vue-router'
     </div>
   </div>
 </template>
+
+<style scoped>
+  .menu-content {
+    /* background-color: #004274; */
+  }
+
+</style>

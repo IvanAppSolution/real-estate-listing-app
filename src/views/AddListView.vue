@@ -1,89 +1,74 @@
-<script setup lang="ts" name="EditListView">
+<script setup lang="ts">
 import axios from 'axios';
-import { onMounted, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import router from '@/router';
-import { useRoute } from 'vue-router';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
-import { Button, ConfirmDialog } from 'primevue';
-import { useConfirm } from 'primevue/useconfirm';
-import { type List, type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
-import { Form, type FormSubmitEvent } from '@primevue/forms';
-import ProgressSpinner from 'primevue/progressspinner';
+import { Form } from '@primevue/forms';
+import type { FormSubmitEvent } from '@primevue/forms';
+import { Button, Galleria, Message } from 'primevue';
+import type { FormResolverOptions } from '@primevue/forms';
+import type { List } from '@/types';
 import FileUploader from '@/components/FileUploader.vue';
 
-const route = useRoute();
-const id = route.params.id;
 const toast = useToast();
-const confirm = useConfirm();
-const state = reactive({
-  valid: true,
-  list: {} as List,
-  isReady: false,
-  isLoading: false,
-});
 
-let initialValues = reactive({
-    _id: id,
-    code: "",
-    name: "",
-    description: "",
+const initialValues = reactive({
+    _id: "",
+    code: "a",
+    name: "a",
+    description: "a",
+    images: [] as string[],
     numBedroom: 1,
     numBathroom: 1,
     garage: 1,
-    area: "",
+    area: "a",
     yearBuilt: 2000,
-    price: 0,    
-    category: "Residential",
-    propertyType: "Apartment",
-    propertyStatus: "For Rent",
-    inventoryStatus: "",
-    address_street: "",
-    address_city: "",
-    address_state: "",
-    address_zip: "",
-    address_mapUrl: "",
-    contact_name: "",
-    contact_email: "",
-    contact_phone: "",
-    contact_others: "",
-    images: [] as string[],
+    price: 1000,    
+    category: "a",
+    propertyType: "a",
+    propertyStatus: "a",
+    inventoryStatus: "a",
     rating: 0,
-  } as ListForm);
-
-
-onMounted(async () => {
-  try {
-    const response = await axios.get(`/api/list/${id}`);
-    Object.assign(state.list, response.data.data);
-    initialValues = mapToInitialValues(response.data.data);
-    state.isReady = true;
-  } catch(error) {
-    console.log('error', error)
-  }
-})
+    address: {
+      street: "a",
+      city: "a",
+      state: "a",
+      country: "a",
+      zip: "",
+      mapUrl: "",
+    },
+    contact: {
+      name: "a",
+      email: "a",
+      phone: "a",
+      others: "a"
+    },
+   
+  } as List );
 
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
+      console.log('values: ', values);
       const formData = new FormData();
-      Object.assign(state.list, values as ListForm);
-      Object.assign(state.list.address, getFormAddress(values as ListForm));
-      Object.assign(state.list.contact, getFormContact(values as ListForm));
-      formData.append('id', JSON.stringify(id));
-      formData.append('listData', JSON.stringify(state.list));
-      console.log('formData: ', formData);
-      const response = await axios.post(`/api/list/update`, formData);
+      Object.assign(values.images, initialValues.images);
+      console.log('initialValues.images: ', initialValues.images)
+      console.log('values.images: ', values.images)
+      formData.append('listData', JSON.stringify(values));
+      const response = await axios.post(`/api/list/add`, formData);
 
-      if (!response.data.success) {
+      console.log('response: ', response)
+      if (response.status == 200) {
+        toast.add({ summary: "Listing saved successfully", severity: "success" });
+        router.push(`/listings/${response.data.id}`)        
+      } else {
         toast.add({ summary: "Error while saving", severity: "error" });
-        return;
+        throw new Error('Failed to save listing');
       }
-      toast.add({ summary: "Listing saved successfully", severity: "success" });
-      
     } else {
       toast.add({ summary: "Please fix the errors in the form", severity: "error" });
     }
@@ -93,40 +78,6 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   }
 }
 
-const onDelete = async () => {
-  confirm.require({
-    message: 'Are you sure you want to delete this listing? This action cannot be undone.',
-    header: 'Delete Confirmation',
-    icon: 'pi pi-exclamation-triangle',
-    rejectProps: {
-      label: 'Cancel',
-      severity: 'secondary',
-      outlined: true
-    },
-    acceptProps: {
-      label: 'Delete',
-      severity: 'danger'
-    },
-    accept: async () => {
-      try {
-        const response = await axios.delete(`/api/list/${id}`);
-        if (response.data.success) {
-          toast.add({ summary: "Listing deleted successfully", severity: "success" });
-          router.push('/listings');
-        } else {
-          toast.add({ summary: "Error while deleting listing", severity: "error" });
-        }
-      } catch (error) {
-        console.log(error);
-        toast.add({ summary: "Error while deleting listing", severity: "error" });
-      }
-    },
-    reject: () => {
-      // User cancelled, do nothing
-    }
-  });
-}
- 
 const responsiveOptions = ref([
     {
         breakpoint: '1300px',
@@ -146,8 +97,8 @@ const responsiveOptions = ref([
       class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0 lg:m-0"
     >
     <Toast />
-    <ConfirmDialog />
-    <Galleria class="" :value="initialValues.images" :responsiveOptions="responsiveOptions"  thumbnailsPosition="right" containerStyle="width: 100%; max-height: 500px;" verticalThumbnailViewPortHeight="85%"    :showItemNavigators="true"   :circular="true">
+    <h2 class="text-3xl text-center font-semibold mb-6">Add Listing</h2>
+      <Galleria class="" :value="initialValues.images" :responsiveOptions="responsiveOptions"  thumbnailsPosition="right" containerStyle="width: 100%; max-height: 500px;" verticalThumbnailViewPortHeight="85%"    :showItemNavigators="true"   :circular="true">
           <template #item="slotProps">
               <img :src="slotProps.item" :alt="slotProps.item" style="width: 100%; display: block" />
           </template>
@@ -160,18 +111,16 @@ const responsiveOptions = ref([
       <div class="w-full flex justify-between items-center mb-6 mt-4">
         <FileUploader @uploadedFiles="(files) => initialValues.images.push(...files)" />
       </div>
-    <div v-if="!state.isReady" class="flex justify-center items-center h-64">
-      <ProgressSpinner class="w-64 m-auto" />
-    </div>  
-    <Form v-else :initialValues="initialValues" :validateOnBlur="true"  @submit="onFormSubmit" class="flex flex-col gap-4 ">
-      <div class="mb-4">
+      <Form  :initialValues="initialValues" :validateOnValueUpdate="false" :validateOnBlur="true"  @submit="onFormSubmit" class="flex flex-col gap-4 ">
+       
+        <div class="mb-4">
           <label for="name" class="block text-gray-700 font-bold mb-2"
             >Name</label>
           <InputText
             id="name"
             name="name"            
             class="border rounded w-full py-2 px-3" 
-          />
+          />          
         </div>
 
         <div class="mb-4">
@@ -184,6 +133,7 @@ const responsiveOptions = ref([
             name="description"
             class="border rounded w-full py-2 px-3"
             rows="4"
+            required
           ></Textarea>
         </div>
 
@@ -196,7 +146,6 @@ const responsiveOptions = ref([
               name="category"
               class="border rounded w-full py-2 px-3"
               :options="['Residential', 'Commercial', 'Industrial']"
-              required
             >
             </Select>
           </div>
@@ -209,7 +158,6 @@ const responsiveOptions = ref([
               name="propertyType"
               class="border rounded w-full py-2 px-3"
               :options="['Apartment', 'Villa', 'House', 'Condo']"
-              required
             >
             </Select>
           </div>
@@ -225,6 +173,7 @@ const responsiveOptions = ref([
               id="price"
               name="price"
               class="border rounded w-full py-2 px-3 mb-2"
+              required
             /> 
           </div>
           <div class="mb-4 w-1/2">
@@ -236,8 +185,8 @@ const responsiveOptions = ref([
               id="areaSize"
               name="area"
               class="border rounded w-full py-2 px-3 mb-2"
-              placeholder="e.g. 1500 sq ft"
-
+              placeholder="e.g. 1200 sq ft"
+              required
             /> 
           </div>
         </div>
@@ -251,6 +200,7 @@ const responsiveOptions = ref([
               id="numBedroom"
               name="numBedroom"
               class="border rounded w-full py-2 px-3 mb-2"
+              required
               />
           </div>
 
@@ -263,6 +213,7 @@ const responsiveOptions = ref([
               id="numBathroom"
               name="numBathroom"
               class="border rounded w-full py-2 px-3 mb-2"
+              required
               />
           </div>
 
@@ -289,19 +240,20 @@ const responsiveOptions = ref([
           </div>
         </div>  
 
+
         <h3 class="text-xl mb-3">Address</h3>
         <div class="flex gap-4">
           <div class="w-1/2 mb-4">
             <label
-              for="street_address"
+              for="company_description"
               class="block text-gray-700 font-bold mb-2"
               >Street</label>
             <InputText
               type="text"
               id="street_address"
-              name="address_street"
+              name="address.street"
               class="border rounded w-full py-2 px-3"
-              />
+              required/>
           </div>
 
           <div class="w-1/2 mb-4">
@@ -312,7 +264,7 @@ const responsiveOptions = ref([
             <InputText
               type="text"
               id="city"
-              name="address_city" 
+              name="address.city"
               class="border rounded w-full py-2 px-3"
               required/>
           </div>
@@ -327,8 +279,9 @@ const responsiveOptions = ref([
             <InputText
               type="text"
               id="state"
-              name="address_state"
+              name="address.state"
               class="border rounded w-full py-2 px-3"
+              required
               />
           </div>
 
@@ -340,9 +293,8 @@ const responsiveOptions = ref([
             <InputText
               type="text"
               id="zip"
-              name="address_zip"
+              name="address.zip"
               class="border rounded w-full py-2 px-3"
-              
               />
           </div>
         </div>
@@ -355,18 +307,18 @@ const responsiveOptions = ref([
             <InputText
               type="text"
               id="map_url"
-              name="address_mapUrl"
+              name="mapUrl"
               class="border rounded w-full py-2 px-3"
-              
               />
           </div>
-          <div v-if="state.list.address.mapUrl" class="w-1/2 mb-4">
+
+          <div class="w-1/2 mb-4">  
               <iframe 
-                :src="state.list.address.mapUrl"
+                :src="initialValues.address.mapUrl" 
                 width="100%" height="100%" style="border:0;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
               </iframe>
+            
           </div>
-          
         </div>
 
         <h3 class="text-xl mb-3">Contact Information</h3>
@@ -380,10 +332,10 @@ const responsiveOptions = ref([
             <InputText
               type="text"
               id="contact_name"
-              name="contact_name"
+              name="contact.name"
               class="border rounded w-full py-2 px-3"
               required
-            />            
+            />
           </div>
           <div class="w-1/2 mb-4">
             <label
@@ -393,10 +345,10 @@ const responsiveOptions = ref([
             <InputText
               type="text"
               id="contact_email"
-              name="contact_email"
-              class="border rounded w-full py-2 px-3" 
-              required             
-            />            
+              name="contact.email"
+              class="border rounded w-full py-2 px-3"
+              required
+            />           
           </div>
         </div>
 
@@ -409,10 +361,10 @@ const responsiveOptions = ref([
             <InputText
               type="tel"
               id="contact_phone"
-              name="contact_phone"
+              name="contact.phone"
               class="border rounded w-full py-2 px-3"
               required
-            />            
+            />
           </div>
           <div class="mb-4 w-1/2">
             <label
@@ -422,29 +374,26 @@ const responsiveOptions = ref([
             <InputText
               type="tel"
               id="others"
-              name="contact_others"
+              name="contact.others"
               class="border rounded w-full py-2 px-3"
             />
           </div>
-        </div>   
-        
+          <inputText
+            type="hidden"
+            id="id"
+            name="images"            
+          />
+        </div>
+
         <div>
           <Button
-            class="w-32 mr-4"
+            class="w-64 mr-4"
             type="submit">
             Save
           </Button>
-           <Button
-              severity="danger"
-              class=" mr-4"
-              @click="onDelete"
-            >
-              Delete Listing
-            </Button>
           <Button
             @click="router.back()"
-            severity="secondary"
-            class="w-32 mr-4">
+            class="w-64 p-button-secondary">
             Cancel
           </Button>
         </div>

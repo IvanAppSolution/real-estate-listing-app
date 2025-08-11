@@ -12,14 +12,35 @@ function smoothScroll(id: string) {
     })
   }
 }
+
+const clickMenuButton = () => {
+  const menu = document.querySelector('.menu-content')
+  if (menu) {
+    menu.classList.toggle('hidden')
+  }
+  const button = document.querySelector('.top-bar-container button')
+  if (button) {
+    button.classList.toggle('hidden')
+  }
+
+}
+// const clickMenu = () => {
+//   const menu = document.querySelector('.top-bar-container')
+//   if (menu) {
+//     menu.classList.toggle('hidden')
+//   }  
+// }
+
+
+
+
 </script>
 
 <template>
   <div class="top-bar-wrapper w-full">
     <div
       class="top-bar-container py-6 mx-6 md:mx-12 lg:mx-12 lg:px-6 flex items-center justify-between relative lg:static z-20"
-    >
-      <!-- <div class="flex items-center justify-between z-20"> -->
+    > 
       <RouterLink to="/" class="flex items-center z-20" >
         <img src="/images/logo3.png" alt="Logo" class="" />
         <span class="text-surface-0 font-medium text-2xl leading-normal">Urban Stay</span>
@@ -41,8 +62,8 @@ function smoothScroll(id: string) {
         <i class="pi pi-bars !text-2xl"></i>
       </Button>
       
-      <div
-        class="items-center dark:bg-surface-900 grow justify-between md:hidden lg:flex absolute lg:static w-1/2 left-0 top-full px-12 lg:px-0 z-20 rounded-border"
+      <div 
+        class="menu-content items-center dark:bg-surface-900 grow justify-between  hidden lg:flex absolute lg:static w-3/4 left-0 top-full px-12 lg:px-0 z-20 rounded-border"
       >
         <ul
           class="ml-20 list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-8"
@@ -83,7 +104,11 @@ function smoothScroll(id: string) {
 </template>
 
 <style scoped>
-  .top-bar-wrapper{
+
+  .menu-content {
+    background-color: #004274;
+  }
+  .top-bar-wrapper {
     background-color: #004274;
   }
 
