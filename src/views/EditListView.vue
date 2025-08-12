@@ -12,7 +12,9 @@ import { type FormSubmitEvent } from '@primevue/forms';
 import ProgressSpinner from 'primevue/progressspinner';
 import FileUploader from '@/components/FileUploader.vue';
 import ListFormComponent from '@/components/list/ListFormComponent.vue';
+import { useAuth } from '@/composables/useAuth';
 
+const { user } = useAuth();
 const route = useRoute();
 const id = route.params.id;
 const toast = useToast();
@@ -40,13 +42,15 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
       console.log('values: ', values);
+      values.userId = user.value?.id;
       const formData = new FormData();
       if (initialValues.images.length > 0) {
         Object.assign(values.images, initialValues.images);
       }   
       Object.assign(values.address, getFormAddress(values as ListForm));
       Object.assign(values.contact, getFormContact(values as ListForm));
-      formData.append('id', JSON.stringify(id));
+      formData.append('id', JSON.stringify(id));      
+      // formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
       console.log('formData: ', formData);
       const response = await axios.post(`/api/list/update`, formData);

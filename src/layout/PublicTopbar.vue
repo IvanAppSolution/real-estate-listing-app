@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Button } from 'primevue'
 import { RouterLink } from 'vue-router'
+import { useAuth } from '@/composables/useAuth'
+
+const { isAuthenticated, logout } = useAuth()
 
 function smoothScroll(id: string) {
   document.body.click()
@@ -22,14 +25,11 @@ const clickMenuButton = () => {
   if (button) {
     button.classList.toggle('hidden')
   }
-
 }
-// const clickMenu = () => {
-//   const menu = document.querySelector('.top-bar-container')
-//   if (menu) {
-//     menu.classList.toggle('hidden')
-//   }  
-// }
+
+const handleLogout = () => {
+  logout()
+}
 
 
 
@@ -66,7 +66,7 @@ const clickMenuButton = () => {
         class="menu-content items-center dark:bg-surface-900 grow justify-between  hidden lg:flex absolute lg:static w-3/4 left-0 top-full px-12 lg:px-0 z-20 rounded-border"
       >
         <ul
-          class="ml-20 list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-8"
+          class="ml-32 list-none p-0 m-0 flex lg:items-center select-none flex-col lg:flex-row cursor-pointer gap-8"
         >
           <li>
             <RouterLink
@@ -84,19 +84,24 @@ const clickMenuButton = () => {
               <span>Listings</span>
             </RouterLink>
           </li>
-          <li>
+          <li v-if="isAuthenticated">
             <RouterLink
-              to="/listings"
+              to="/dashboard"
               class="px-0 py-4 text-surface-0 font-medium text-xl"
             >
-              <span>Features</span>
+              <span>Dashboard</span>
             </RouterLink>
           </li>
          
         </ul>
         <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">
-          <Button label="Login" text as="router-link" to="/login" style="color:white;" rounded></Button>
-          <Button label="Register" to="/login" rounded></Button>
+          <template v-if="!isAuthenticated">
+            <Button label="Login" variant="link" as="router-link" to="/login" style="color:white;" rounded></Button>
+            <Button label="Register" as="router-link" to="/register" rounded></Button>
+          </template>
+          <template v-else>
+            <Button label="Logout" variant="link" @click="handleLogout" style="color:white;" ></Button>
+          </template>
         </div>
       </div>
     </div>

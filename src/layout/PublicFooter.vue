@@ -1,6 +1,6 @@
 <template>
-  <div class="footer-container py-6 px-6 mx-0 mt-20 lg:mx-20">
-    <div class="grid grid-cols-12 gap-4">
+  <div class="footer-container py-6 px-6 mt-20">
+    <div class="grid grid-cols-12 gap-4 lg:mx-20">
       <div class="col-span-12 md:col-span-2">
         <a
           class="flex flex-wrap items-center justify-center md:justify-start md:mb-0 mb-4 cursor-pointer"

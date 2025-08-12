@@ -54,16 +54,16 @@ import { RouterLink } from 'vue-router'
         </li>
         <li>
           <RouterLink
-            to="/listings"
+            to="/dashboard"
             class="px-0 py-4 text-surface-0 font-medium text-xl"
           >
-            <span>Features</span>
+            <span>Dashboard</span>
           </RouterLink>
         </li>
       </ul>
       <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">
-        <Button label="Login" text as="router-link" to="/login" style="color:white;" rounded></Button>
-        <Button label="Register" to="/login" rounded></Button>
+        <Button label="Login" variant="link" as="router-link" to="/login" style="color:white;" rounded></Button>
+        <Button label="Register" as="router-link" to="/register" rounded></Button>
       </div>
     </div>
   </div>

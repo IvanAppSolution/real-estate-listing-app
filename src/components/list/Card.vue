@@ -47,7 +47,7 @@ console.log('List:', props.list);
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  /* height: 300px; */
+  max-width: 260px;
 }
 
 .item-container {
@@ -63,6 +63,7 @@ console.log('List:', props.list);
   padding: 0.5rem;
   flex-grow: 1;
   margin-top: 0.5rem;
+  min-height: 72px;
 }
 
 .item-tag {
@@ -91,7 +92,7 @@ console.log('List:', props.list);
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 200px;
+  max-height: 200px;
   background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.2));
   pointer-events: none; 
   transition: background 0.5s ease;

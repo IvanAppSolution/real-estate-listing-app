@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios';
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import router from '@/router';
 import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
@@ -9,14 +9,17 @@ import { Galleria } from 'primevue';
 import { getFormAddress, getFormContact, type ListForm } from '@/types';
 import FileUploader from '@/components/FileUploader.vue';
 import ListFormComponent from '@/components/list/ListFormComponent.vue';
+import { useAuth } from '@/composables/useAuth'
 
 const toast = useToast();
+const { user, token } = useAuth();
 
 const initialValues = reactive({
     _id: "",
     code: "",
     name: "",
     description: "",
+    userId: "",
     images: [] as string[],
     numBedroom: 1,
     numBathroom: 1,
@@ -46,19 +49,17 @@ const initialValues = reactive({
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
-      console.log('values: ', values);
+      console.log('values1: ', values);
       const formData = new FormData();
       if (initialValues.images.length > 0) {
         Object.assign(values.images, initialValues.images);
-      }   
-      console.log('getFormAddress(values as ListForm): ', getFormAddress(values as ListForm))
-      console.log('getFormContact(values as ListForm): ', getFormContact(values as ListForm))   
+      }  
       Object.assign(values.address, getFormAddress(values as ListForm));
       Object.assign(values.contact, getFormContact(values as ListForm));
-      console.log('values.address: ', values.address)
-      console.log('values: ', values)
+      values.userId = user.value?.id;
+      formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
-      const response = await axios.post(`/api/list/add`, formData);
+      const response = await axios.post(`/api/list/add`, formData); 
 
       console.log('response: ', response)
       if (response.status == 200) {
@@ -76,6 +77,13 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
     toast.add({ summary: "Error while saving", severity: "error" })
   }
 }
+
+onMounted(() => {
+  // Initialize any necessary data or state here
+  initialValues.userId = user.value?.id || ""; // Replace with actual user ID
+  console.log('initialValues: ', initialValues);
+  console.log('user: ', user.value);
+});
 
 const responsiveOptions = ref([
     {

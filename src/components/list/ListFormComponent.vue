@@ -8,7 +8,7 @@ import Textarea from 'primevue/textarea';
 import { Button } from 'primevue';
 import { Form, type FormSubmitEvent } from '@primevue/forms';
 
-const props = defineProps<{
+defineProps<{
   initialValues: ListForm;
 }>();
 
@@ -287,6 +287,7 @@ const emit = defineEmits<{
         </div>   
         
         <div>
+          <InputText type="hidden" name="userId" :value="initialValues.userId" />
           <InputText type="hidden" name="images" :value="initialValues.images" />
           <InputText type="hidden" name="address" :value="initialValues.address" />
           <InputText type="hidden" name="contact" :value="initialValues.contact" />

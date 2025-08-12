@@ -6,10 +6,10 @@ import PublicFooter from './PublicFooter.vue';
 </script>
 
 <template>
-  <div>
+  
     <PublicTopbar />
     <RouterView />
     <PublicFooter />
-  </div>
+ 
   <Toast />
 </template>

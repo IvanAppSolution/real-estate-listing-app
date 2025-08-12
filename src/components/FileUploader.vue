@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { FileUpload, Toast } from "primevue";
 import { useToast } from "primevue/usetoast";
-import type { FileUploadUploadEvent } from "primevue/fileupload";
+import type { FileUploadUploadEvent, FileUploadBeforeSendEvent } from "primevue/fileupload";
 import { reactive } from "vue";
+import { useAuth } from '@/composables/useAuth';
 
+const { token } = useAuth();
 const state = reactive({
   files: [] as string[],
 });
@@ -23,12 +25,16 @@ const onAdvancedUpload = (event: FileUploadUploadEvent) => {
   emit('uploadedFiles', state.files);
 };
 
+const onBeforeSend = (event: FileUploadBeforeSendEvent) => {
+  event.xhr.setRequestHeader('Authorization', `Bearer ${token.value}`);
+};
+
 </script>
 
 <template>
     <div class="w-full">
         <Toast />
-        <FileUpload name="images" url="/api/list/media/upload" @upload="onAdvancedUpload($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" :auto="true">
+        <FileUpload name="images" url="/api/list/media/upload" @upload="onAdvancedUpload($event)" @before-send="onBeforeSend" :multiple="true" accept="image/*" :maxFileSize="1000000" :auto="true">
           <template #header="{ chooseCallback, clearCallback, files }">
             <div class="flex justify-between items-center">
               <Button label="Choose" icon="pi pi-fw pi-plus" @click="chooseCallback" />
