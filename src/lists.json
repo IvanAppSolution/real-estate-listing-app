@@ -1,7 +1,7 @@
 {
   "lists": [
     {
-      "_id": "1000",
+      "id": "689b1ecd97551ad4ac137538",
       "code": "f230fh0g3",
       "name": "Bamboo Watch",
       "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.",
@@ -33,8 +33,8 @@
       }
     },
     {
-      "id": "1001",
-      "code": "nvklal433",
+      "id": "689b220997551ad4ac13755a",
+      "code": "1001",
       "name": "Black Watch",
       "description": "Product Description",
       "image": "/images/features/2.jpg",
@@ -45,7 +45,7 @@
       "garage": 2,
       "area": "1500 Sq Ft",
       "yearBuilt": 2020,
-      "price": 250000,
+      "price": 1100,
       "propertyType": "House",
       "propertyStatus": "For Rent",
       "inventoryStatus": "INSTOCK",
@@ -63,8 +63,8 @@
       }
     },
     {
-      "id": "1002",
-      "code": "zz21cz3c1",
+      "id": "689b204097551ad4ac137546",
+      "code": "1002",
       "name": "Red Watch",
       "description": "Product Description",
       "image": "/images/features/3.jpg",
@@ -75,7 +75,7 @@
       "garage": 0,
       "area": "800 Sq Ft",
       "yearBuilt": 2019,
-      "price": 95000,
+      "price": 1700,
       "propertyType": "Condo",
       "propertyStatus": "For Sale",
       "inventoryStatus": "INSTOCK",     
@@ -93,7 +93,7 @@
       }
     },
     {
-      "id": "1003",
+      "id": "689b148797551ad4ac13750f",
       "code": "po34po4p0",
       "name": "Green Watch",
       "description": "Product Description",
@@ -105,7 +105,7 @@
       "garage": 3,
       "area": "2500 Sq Ft",
       "yearBuilt": 2021,
-      "price": 450000,
+      "price": 1700,
       "propertyType": "Villa",
       "propertyStatus": "For Sale",
       "inventoryStatus": "INSTOCK",     
@@ -123,7 +123,7 @@
       }
     },
     {
-      "id": "1004",
+      "id": "689b20ee97551ad4ac13754e",
       "code": "qwe123asd",
       "name": "Blue Watch",
       "description": "Product Description",
@@ -135,7 +135,7 @@
       "garage": 1,
       "area": "1400 Sq Ft",
       "yearBuilt": 2017,
-      "price": 180000,
+      "price": 1000,
       "propertyType": "Townhouse",
       "propertyStatus": "For Rent",
       "inventoryStatus": "INSTOCK",     
@@ -153,8 +153,8 @@
       }
     }, 
     {
-      "id": "1005",
-      "code": "xyz789qwe",
+      "id": "689ac78459ad646f3cc27f3b",
+      "code": "1005",
       "name": "Yellow Watch",
       "description": "Product Description",
       "image": "/images/features/6.jpg",
@@ -165,7 +165,7 @@
       "garage": 0,
       "area": "900 Sq Ft",
       "yearBuilt": 2018,
-      "price": 120000,
+      "price": 1200,
       "propertyType": "Apartment",
       "propertyStatus": "For Sale",
       "inventoryStatus": "INSTOCK",     

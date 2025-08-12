@@ -21,11 +21,6 @@ const state = reactive({
   isLoading: false,
  })
 
-
- function wait(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  
  onMounted( async () => {
   try {
     // state.isLoading = true;
@@ -46,7 +41,7 @@ const state = reactive({
 <template>
   <section class="px-4 py-5"> 
     <div class="container-xl lg:container m-auto">
-      <div class="mb-6">
+      <div class="mt-4">
         <IconField>
           <InputIcon>
             <i class="pi pi-search" />
