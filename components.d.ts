@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppConfig: typeof import('./src/components/AppConfig.vue')['default']
+    AuthTest: typeof import('./src/components/AuthTest.vue')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('./src/components/list/Card.vue')['default']
     CardFeature: typeof import('./src/components/list/CardFeature.vue')['default']
@@ -31,5 +32,6 @@ declare module 'vue' {
     Textarea: typeof import('primevue/textarea')['default']
     TopbarWidget: typeof import('./src/components/home/TopbarWidget.vue')['default']
     UserLogin: typeof import('./src/components/UserLogin.vue')['default']
+    UserRegister: typeof import('./src/components/UserRegister.vue')['default']
   }
 }

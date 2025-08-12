@@ -15,10 +15,12 @@ export interface Job {
 } 
 
 export interface List {
-    _id: string;
+    id?: string;
+    _id?: string; // MongoDB ID
     code: string;
     name: string;
     description: string;
+    userId: string; // Optional userId for the list owner
     images: string[];
     numBedroom: number;
     numBathroom: number;
@@ -48,7 +50,7 @@ export interface List {
   }
 
   export interface ListForm {
-    _id: string;
+    id: string;
     code: string;
     name: string;
     description: string;
@@ -76,6 +78,7 @@ export interface List {
     contact_others: string;
     address: object;
     contact: object;
+    userId: string; // Added userId to ListForm
  }
  
 export interface Feature {
@@ -98,10 +101,11 @@ export interface Feature {
 
 export function mapToInitialValues(list: List) {
   return {
-    _id: list._id,
+    id: list._id,
     code: list.code,
     name: list.name,
     description: list.description,
+    userId: list.userId || "",
     numBedroom: list.numBedroom,
     numBathroom: list.numBathroom,
     garage: list.garage,

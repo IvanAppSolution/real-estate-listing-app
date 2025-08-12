@@ -1,73 +1,21 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted  } from 'vue';
 import { useRoute } from 'vue-router';
-// import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import type { List } from '../types';
 import { Galleria, ProgressSpinner } from 'primevue'; 
-import listsData from '../lists.json';
-import pic1 from '@/assets/images/1/1.jpg';
-import pic2 from '@/assets/images/1/2.jpg';
-import pic3 from '@/assets/images/1/3.jpg';
-import pic4 from '@/assets/images/1/4.jpg';
-import pic5 from '@/assets/images/1/5.jpg';
 import axios from 'axios';
 import router from '@/router';
- 
- 
+import { useAuth } from '@/composables/useAuth';
 
 const route = useRoute();
 const id = route.params.id;
+const { user } = useAuth();
 
 const state = reactive({
   list: {} as List,
   isLoading: false,
   isReady: false
 })
-
-const images = ref([
-  {
-    itemImageSrc: pic1,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1s.jpg',
-    alt: 'Description for Image 1',
-    title: 'Title A'
-},
-{
-    itemImageSrc: pic2,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2s.jpg',
-    alt: 'Description for Image 2',
-    title: 'Title B'
-},
-{
-    itemImageSrc: pic3,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2s.jpg',
-    alt: 'Description for Image 2',
-    title: 'Title 2'
-},
-{
-    itemImageSrc: pic4,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria3s.jpg',
-    alt: 'Description for Image 3',
-    title: 'Title 3'
-},
-{
-    itemImageSrc: pic5,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria1s.jpg',
-    alt: 'Description for Image 1',
-    title: 'Title 1'
-},
-{
-    itemImageSrc: pic1,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria2s.jpg',
-    alt: 'Description for Image 2',
-    title: 'Title 2'
-},
-{
-    itemImageSrc: pic3,
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primevue/images/galleria/galleria3s.jpg',
-    alt: 'Description for Image 3',
-    title: 'Title 3'
-}
-]);
  
 const responsiveOptions = ref([
     {
@@ -81,35 +29,12 @@ const responsiveOptions = ref([
     }
 ]);
 
-// function wait(ms: number) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
 
-//  onMounted( async () => {
-//   try {
-//     state.isLoading = true;
-//     await wait(1000);
-//     const response = await axios.get(`http://localhost:5000/jobs/${jobId}`);
-//     console.log('response: ', response.data)
-//     state.job = response.data;     
-
-//   } catch (error) {
-//     console.log('Error fetching jobs. ', error)
-//   } finally {
-//      state.isLoading = false;
-//   }
-//  })
 onMounted (async () => {
   try {
     const response = await axios.get(`/api/list/${id}`);
-    console.log('response.data: ', response.data.data);
     Object.assign(state.list, response.data.data);
     state.isReady = true;
-    // Object_assign(address, response.data.data.address);
-    // Object_assign(contact, response.data.data.contact);
-    // initialValues_value = response.data.data;
-    // initialValues_value.address = initialValues_value.address;
-    // console.log('initialValues: ', initialValues);
   } catch(error) {
     console.log('error', error)
   }
@@ -267,7 +192,7 @@ onMounted (async () => {
         </div>
         
           <!-- Manage -->
-        <div class="block-wrap bg-white p-6 rounded-lg shadow-md mt-6">
+        <div v-if="user" class="block-wrap bg-white p-6 rounded-lg shadow-md mt-6">
           <div class="block-title-wrap" >
             <h4 >Manage Listing</h4>
           </div>

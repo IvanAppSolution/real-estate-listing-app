@@ -60,7 +60,7 @@ const state = reactive({
       <div v-if="state.isLoading" class="text-center text-gray-500 py-6">Loading...</div>
       <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
         <Card v-for="(list, i) in state.lists" :key="i" :list="list" />      </div>
-    </div>
+      </div>
   </section>
   <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
     <RouterLink
@@ -68,8 +68,4 @@ const state = reactive({
       class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
       >View All Listings</RouterLink>
   </section>
-   
-
- 
-
 </template>

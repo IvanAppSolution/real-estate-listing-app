@@ -8,6 +8,8 @@ import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import EditListView from '@/views/EditListView.vue'
 import AddListView from '@/views/AddListView.vue'
+import DashboardView from '@/views/DashboardView.vue'
+import { useAuth } from '@/composables/useAuth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,14 +20,16 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterView,
+      path: '/dashboard',
+      name: 'dashboard',
+      component: PublicLayout,
+      children: [
+        {
+          path: '',
+          name: 'dashboard-home',
+          component: DashboardView,
+        },
+      ],
     },
     {
       path: '/listings',
@@ -55,11 +59,40 @@ const router = createRouter({
       ],
     },
     {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
+    },
+    {
       path: '/:catchAll(.*)',
       name: 'not-found',
       component: NotFoundView
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const { isAuthenticated } = useAuth()
+  const protectedRoutes = ['dashboard-home', 'edit-list', 'add-list']
+  
+  const guestOnlyRoutes = ['login', 'register']
+  
+  if (protectedRoutes.includes(to.name as string)) {
+    if (!isAuthenticated.value) {
+      next({ name: 'login', query: { redirect: to.fullPath } })
+    } else {
+      next()
+    }
+  } else if (guestOnlyRoutes.includes(to.name as string) && isAuthenticated.value) {
+    next({ name: 'dashboard-home' })
+  } else {
+    next()
+  }
 })
 
 export default router
