@@ -163,7 +163,7 @@ onMounted (async () => {
 
         <div class="block-wrap bg-white p-6 rounded-lg shadow-md mt-4">
           <div class="block-title-wrap">
-            <h4>Description</h4>	
+            <h4>{{ state.list.name }}</h4>	
           </div>
           <div class="description-content">
             <p>{{ state.list.description }}</p>

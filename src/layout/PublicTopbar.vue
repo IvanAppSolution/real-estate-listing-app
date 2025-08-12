@@ -84,7 +84,7 @@ const handleLogout = () => {
               <span>Listings</span>
             </RouterLink>
           </li>
-          <li v-if="isAuthenticated">
+          <li>
             <RouterLink
               to="/dashboard"
               class="px-0 py-4 text-surface-0 font-medium text-xl"
