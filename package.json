@@ -1,15 +1,19 @@
 {
   "name": "client",
   "version": "0.0.0",
+  "author": "Ivan Alcuino",
   "private": true,
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "dev": "vite --mode development",
+    "dev:prod": "vite --mode production",
+    "build": "vue-tsc && vite build --mode production",
+    "build:dev": "vue-tsc && vite build --mode development",
     "preview": "vite preview",
+    "preview:prod": "vite preview --mode production",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
