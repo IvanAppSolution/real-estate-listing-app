@@ -15,8 +15,7 @@ export interface Job {
 } 
 
 export interface List {
-    id?: string;
-    _id?: string; // MongoDB ID
+    id: string;
     code: string;
     name: string;
     description: string;
@@ -101,7 +100,7 @@ export interface Feature {
 
 export function mapToInitialValues(list: List) {
   return {
-    id: list._id,
+    id: list.id,
     code: list.code,
     name: list.name,
     description: list.description,
