@@ -192,7 +192,7 @@ onMounted (async () => {
         </div>
         
           <!-- Manage -->
-        <div v-if="user" class="block-wrap bg-white p-6 rounded-lg shadow-md mt-6">
+        <div v-if="user && user.id == state.list.userId" class="block-wrap bg-white p-6 rounded-lg shadow-md mt-6">
           <div class="block-title-wrap" >
             <h4 >Manage Listing</h4>
           </div>
