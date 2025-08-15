@@ -45,8 +45,8 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       __API_BASE_URL__: isDevelopment 
-        ? JSON.stringify('http://localhost:4000/api')
-        : JSON.stringify('https://real-estate-listing-server.netlify.app/api'),
+        ? JSON.stringify('http://localhost:4000')
+        : JSON.stringify('https://real-estate-listing-server.netlify.app/.netlify/functions'),
       __VUE_PROD_DEVTOOLS__: isDevelopment,
     },
   }
