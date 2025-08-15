@@ -13,22 +13,6 @@ export interface AuthResponse {
   user?: User
 }
 
-export interface Job {
-  id: string; 
-  title: string;
-  description: string;
-  type: string;
-  salary: string;
-  location: string;
-  image: string;
-  company: {
-    name: string;
-    description: string;
-    contactEmail: string;
-    contactPhone: string;
-  };
-} 
-
 export interface List {
     id: string;
     code: string;

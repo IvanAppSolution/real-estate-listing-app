@@ -11,7 +11,7 @@ const props = defineProps({
 
 <template>
   <RouterLink :to="`/listings/${list?.id}`" class="hover-effect">
-    <div class="carousel-item dark:border-surface-700 m-2">
+    <div class="carousel-item dark:border-surface-700">
       <div class="item-container">
         <div class="img-container mx-auto">
           <img
