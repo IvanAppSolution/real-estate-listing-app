@@ -59,7 +59,7 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       values.userId = user.value?.id;
       formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
-      const response = await api.post(`api/list/add`, formData); 
+      const response = await api.post(`/api/list/add`, formData); 
 
       // console.log('response: ', response)
       if (response.status == 200) {

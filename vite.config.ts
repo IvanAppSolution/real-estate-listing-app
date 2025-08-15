@@ -7,6 +7,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === 'development'
   const isProduction = mode === 'production'
+  const baseURL = isProduction ? 'https://real-estate-listing-server.netlify.app' : 'http://localhost:4000'
 
   return {
     plugins: [
@@ -44,7 +45,7 @@ export default defineConfig(({ mode }) => {
       } : undefined,
     },
     define: {
-      __API_BASE_URL__: JSON.stringify(process.env.VITE_API_BASE_URL || 'http://localhost:4000'),
+      __API_BASE_URL__: JSON.stringify(baseURL),
       __VUE_PROD_DEVTOOLS__: isDevelopment,
     },
   }
