@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === 'development'
   const isProduction = mode === 'production'
-  const baseURL = isProduction ? 'https://real-estate-listing-server.netlify.app' : 'http://localhost:4000'
+  const baseURL = isProduction ? 'https://real-estate-listing-server.netlify.app/.netlify/functions' : 'http://localhost:4000'
 
   return {
     plugins: [
