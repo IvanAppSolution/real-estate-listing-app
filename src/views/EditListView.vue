@@ -7,7 +7,7 @@ import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';
-import { type List, type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
+import { type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
 import { type FormSubmitEvent } from '@primevue/forms';
 import ProgressSpinner from 'primevue/progressspinner';
 import FileUploader from '@/components/FileUploader.vue';
@@ -29,9 +29,9 @@ const initialValues = reactive({} as ListForm);
 
 onMounted(async () => {
   try {
-    const response = await api.get(`api/list/${id}`);
+    const response = await api.get(`/api/list/${id}`);
     Object.assign(initialValues, mapToInitialValues(response.data.data));
-    console.log('initialValues: ', initialValues);
+    // console.log('initialValues: ', initialValues);
     state.isReady = true;
   } catch(error) {
     console.log('error', error)
@@ -53,7 +53,7 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       // formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
       // console.log('formData: ', formData);
-      const response = await api.post(`api/list/update`, formData);
+      const response = await api.post(`/api/list/update`, formData);
 
       if (!response.data.success) {
         toast.add({ summary: "Error while saving", severity: "error" });
