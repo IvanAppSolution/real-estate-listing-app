@@ -39,7 +39,7 @@ const handleSubmit = async () => {
         life: 3000
       });
       
-      router.push('/');
+      router.push('/login');
     } else {
       throw new Error('Registration failed');
     }

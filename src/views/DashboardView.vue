@@ -1,24 +1,50 @@
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, watch } from 'vue';
 import api from '@/axios';
 import { Button, ProgressSpinner} from 'primevue';
 import type { List } from '../types';
 import Card from '@/components/list/Card.vue';
+import { useAuth } from '@/composables/useAuth';
+
+const { user } = useAuth();
 const state = reactive({
   lists: [] as List[],
   isLoading: false,
 })
 
-onMounted(async () => {
+const fetchListings = async () => {
   try {
     state.isLoading = true;
-    const response = await api.get('/api/list/myListings');
-    state.lists = response.data.data;
+    console.log('user:', user.value);
     
+    if (user.value?.role === 'admin') {
+      const response = await api.get('/api/list'); // Remove /api prefix
+      state.lists = response.data.data;
+    } else {
+      const response = await api.get('/api/list/myListings'); // Remove /api prefix
+      state.lists = response.data.data;
+    }    
   } catch (error) {
     console.log('Error fetching lists. ', error)
   } finally {
     state.isLoading = false;
+  }
+}
+
+watch(
+  () => user.value,
+  (newUser) => {
+    if (newUser) {
+      fetchListings();
+    }
+  },
+  { immediate: true }  
+)
+
+onMounted(() => {
+  // Only fetch if user is already available
+  if (user.value) {
+    fetchListings();
   }
 })
 </script>

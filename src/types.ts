@@ -1,18 +1,17 @@
-export interface Job {
-  id: string; 
-  title: string;
-  description: string;
-  type: string;
-  salary: string;
-  location: string;
-  image: string;
-  company: {
-    name: string;
-    description: string;
-    contactEmail: string;
-    contactPhone: string;
-  };
-} 
+export interface User {
+  id: string
+  email: string
+  username?: string
+  role?: string
+  [key: string]: unknown
+}
+
+export interface AuthResponse {
+  success: boolean
+  message: string
+  token?: string
+  user?: User
+}
 
 export interface List {
     id: string;

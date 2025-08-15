@@ -2,7 +2,9 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { motion, AnimatePresence } from 'motion-v'
 import { Button, IconField, InputIcon, InputText } from 'primevue'
-
+import { useRouter } from 'vue-router'
+ 
+const router = useRouter();
 const slideImg = [
   { url: '/images/landing/chicago.jpg', label: 'Chicago' },
   { url: '/images/landing/new-york.jpg', label: 'New York' },
@@ -19,12 +21,10 @@ const nextSlide = () => {
 }
 
 onMounted(() => {
-  // Start the infinite scrolling animation
-  intervalId.value = setInterval(nextSlide, 4000) // Change every 3 seconds
+  intervalId.value = setInterval(nextSlide, 4000)
 })
 
 onUnmounted(() => {
-  // Clean up the interval when component is unmounted
   if (intervalId.value) {
     clearInterval(intervalId.value)
   }
@@ -60,20 +60,14 @@ onUnmounted(() => {
           <InputIcon>
             <i class="pi pi-search" />
           </InputIcon>
-          <InputText placeholder="Search location" />
-          <Button label="Search" class="!ml-2" />
+          <InputText placeholder="Search location"  @click="() => router.push(`/listings`)" />
+          <Button as="router-link" :to="`/listings`" label="Search" class="!ml-2" />
         </IconField>
       </div>
       <div class="w-full text-center mt-6 slide-label text-surface-0">
         <p class="text-4xl font-bold">Find a place to stay</p> 
       </div>
     </div>
-
-    <!-- <div class="slide-shape slide-shape-bottom" aria-hidden="true" data-negative="false">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-        <path class="slide-shape-fill" d="M0,6V0h1000v100L0,6z"></path>
-      </svg>
-    </div> -->
   </div>
 </template>
 
@@ -180,19 +174,4 @@ onUnmounted(() => {
   position: absolute;
 }
 
-/* Responsive design */
-/* @media (max-width: 768px) {
-  .slide-image {
-    width: 300px;
-    height: 225px;
-  }
-  
-  .slide-label {
-    font-size: 24px;
-  }
-  
-  .progress-container {
-    width: 150px;
-  }
-} */
 </style>
