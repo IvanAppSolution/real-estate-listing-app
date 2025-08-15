@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import type { Feature } from '@/types';
 
-const props = defineProps<{
+defineProps<{
   feature: Feature
 }>();
-
-console.log('Feature:', props.feature);
  
 </script>
 

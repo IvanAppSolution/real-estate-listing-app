@@ -17,6 +17,9 @@ importers:
       '@primevue/forms':
         specifier: ^4.3.7
         version: 4.3.7(vue@3.5.18(typescript@5.8.3))
+      '@types/axios':
+        specifier: ^0.14.4
+        version: 0.14.4
       axios:
         specifier: ^1.11.0
         version: 1.11.0
@@ -638,6 +641,10 @@ packages:
 
   '@tsconfig/node22@22.0.2':
     resolution: {integrity: sha512-Kmwj4u8sDRDrMYRoN9FDEcXD8UpBSaPQQ24Gz+Gamqfm7xxn+GBR7ge/Z7pK8OXNGyUzbSwJj+TH6B+DS/epyA==}
+
+  '@types/axios@0.14.4':
+    resolution: {integrity: sha512-9JgOaunvQdsQ/qW2OPmE5+hCeUB52lQSolecrFrthct55QekhmXEwT203s20RL+UHtCQc15y3VXpby9E7Kkh/g==}
+    deprecated: This is a stub types definition. axios provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -3458,6 +3465,12 @@ snapshots:
   '@tootallnate/once@2.0.0': {}
 
   '@tsconfig/node22@22.0.2': {}
+
+  '@types/axios@0.14.4':
+    dependencies:
+      axios: 1.11.0
+    transitivePeerDependencies:
+      - debug
 
   '@types/estree@1.0.8': {}
 

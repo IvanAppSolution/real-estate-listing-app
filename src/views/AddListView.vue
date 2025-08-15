@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import axios from 'axios';
+import api from '@/axios';
 import { onMounted, reactive, ref } from 'vue';
 import router from '@/router';
 import Toast from 'primevue/toast';
@@ -15,7 +15,7 @@ const toast = useToast();
 const { user, token } = useAuth();
 
 const initialValues = reactive({
-    _id: "",
+    id: "",
     code: "",
     name: "",
     description: "",
@@ -49,7 +49,7 @@ const initialValues = reactive({
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
-      console.log('values1: ', values);
+      // console.log('values1: ', values);
       const formData = new FormData();
       if (initialValues.images.length > 0) {
         Object.assign(values.images, initialValues.images);
@@ -59,9 +59,9 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       values.userId = user.value?.id;
       formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
-      const response = await axios.post(`/api/list/add`, formData); 
+      const response = await api.post(`api/list/add`, formData); 
 
-      console.log('response: ', response)
+      // console.log('response: ', response)
       if (response.status == 200) {
         toast.add({ summary: "Listing saved successfully", severity: "success" });
         router.push(`/listings/${response.data.id}`)        

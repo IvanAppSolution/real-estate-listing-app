@@ -3,7 +3,7 @@ import { ref, reactive, onMounted  } from 'vue';
 import { useRoute } from 'vue-router';
 import type { List } from '../types';
 import { Galleria, ProgressSpinner } from 'primevue'; 
-import axios from 'axios';
+import api from '@/axios';
 import router from '@/router';
 import { useAuth } from '@/composables/useAuth';
 
@@ -32,7 +32,7 @@ const responsiveOptions = ref([
 
 onMounted (async () => {
   try {
-    const response = await axios.get(`/api/list/${id}`);
+    const response = await api.get(`/api/list/${id}`);
     Object.assign(state.list, response.data.data);
     state.isReady = true;
   } catch(error) {

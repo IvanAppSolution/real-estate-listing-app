@@ -32,7 +32,7 @@ const handleLogout = () => {
 }
 
 
-
+console.log('API Base URL:', __API_BASE_URL__)
 
 </script>
 

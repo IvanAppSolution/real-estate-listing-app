@@ -1,8 +1,6 @@
 <script setup lang="ts" name="ListListing">
 import { ref, computed } from 'vue';
 import type {  List } from '../../types';
-// import listsData from '../../lists.json';
-// const lists = ref(listsData.lists); 
 
 const props = defineProps({
   list: Object as () => List

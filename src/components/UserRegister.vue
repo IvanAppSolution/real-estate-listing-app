@@ -16,10 +16,10 @@ const initialValues = ref({
   confirmPassword: ''
 });
 
-// Computed property to check if passwords match
+
 const passwordsMatch = computed(() => {
   if (!initialValues.value.password || !initialValues.value.confirmPassword) {
-    return true; // Don't show error if either field is empty
+    return true;
   }
   return initialValues.value.password === initialValues.value.confirmPassword;
 });

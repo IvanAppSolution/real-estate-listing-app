@@ -1,5 +1,5 @@
 <script setup lang="ts" name="EditListView">
-import axios from 'axios';
+import api from '@/axios';
 import { onMounted, reactive, ref } from 'vue';
 import router from '@/router';
 import { useRoute } from 'vue-router';
@@ -29,7 +29,7 @@ const initialValues = reactive({} as ListForm);
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/list/${id}`);
+    const response = await api.get(`api/list/${id}`);
     Object.assign(initialValues, mapToInitialValues(response.data.data));
     console.log('initialValues: ', initialValues);
     state.isReady = true;
@@ -41,7 +41,7 @@ onMounted(async () => {
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
-      console.log('values: ', values);
+      // console.log('values: ', values);
       values.userId = user.value?.id;
       const formData = new FormData();
       if (initialValues.images.length > 0) {
@@ -52,8 +52,8 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       formData.append('id', JSON.stringify(id));      
       // formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
-      console.log('formData: ', formData);
-      const response = await axios.post(`/api/list/update`, formData);
+      // console.log('formData: ', formData);
+      const response = await api.post(`api/list/update`, formData);
 
       if (!response.data.success) {
         toast.add({ summary: "Error while saving", severity: "error" });
@@ -86,7 +86,7 @@ const onDelete = async () => {
     },
     accept: async () => {
       try {
-        const response = await axios.delete(`/api/list/${id}`);
+        const response = await api.delete(`/api/list/${id}`);
         if (response.data.success) {
           toast.add({ summary: "Listing deleted successfully", severity: "success" });
           router.push('/listings');
