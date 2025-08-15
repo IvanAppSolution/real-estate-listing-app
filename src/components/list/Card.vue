@@ -6,7 +6,7 @@ import CardFeature from './CardFeature.vue';
 const props = defineProps({
   list: Object as () => List
 }) 
-console.log('List:', props.list);
+
 </script>
 
 <template>

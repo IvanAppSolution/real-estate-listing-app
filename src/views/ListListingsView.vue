@@ -1,6 +1,6 @@
 <script setup lang="ts" name="ListListings">
 import { onMounted, reactive } from 'vue';
-import axios from 'axios';
+import api from '@/axios';
 // import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import { RouterLink } from 'vue-router';
 import { Button, IconField, InputIcon, InputText } from 'primevue';
@@ -23,12 +23,9 @@ const state = reactive({
 
  onMounted( async () => {
   try {
-    // state.isLoading = true;
-    // await wait(500);
-    const response = await axios.get('api/list');
+    
+    const response = await api.get('/api/list');
     state.lists = response.data.data;
-    // console.log('response.data: ', response.data);
-    // console.log('lists: ', state.lists);
 
   } catch (error) {
     console.log('Error fetching lists. ', error)

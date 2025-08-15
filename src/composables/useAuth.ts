@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import axios from 'axios'
+import api from '@/axios' // Use your custom api instance
 import router from '@/router'
 
 interface User {
@@ -22,33 +22,9 @@ const user = ref<User | null>(null)
 export const useAuth = () => {
   const isAuthenticated = computed(() => !!token.value)
 
-  const setupAxiosInterceptors = () => {    
-    axios.interceptors.request.use(
-      (config) => {
-        if (token.value) {
-          config.headers.Authorization = `Bearer ${token.value}`
-        }
-        return config
-      },
-      (error) => {
-        return Promise.reject(error)
-      }
-    )
-
-    axios.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response?.status === 401) {
-          logout()
-        }
-        return Promise.reject(error)
-      }
-    )
-  }
-
   const login = async (email: string, password: string): Promise<AuthResponse> => {
     try {
-      const response = await axios.post('/api/user/login', {
+      const response = await api.post('/user/login', { // No /api prefix needed
         email,
         password
       })
@@ -56,7 +32,7 @@ export const useAuth = () => {
       if (response.data.success) {
         token.value = response.data.token
         localStorage.setItem('token', response.data.token)
-        
+   
         if (response.data.user) {
           user.value = response.data.user
           localStorage.setItem('user', JSON.stringify(response.data.user))
@@ -78,7 +54,7 @@ export const useAuth = () => {
 
   const register = async (email: string, password: string, username?: string): Promise<AuthResponse> => {
     try {
-      const response = await axios.post('/api/user/register', {
+      const response = await api.post('/user/register', { // No /api prefix needed
         email,
         password,
         username: username || email.split('@')[0]
@@ -124,16 +100,13 @@ export const useAuth = () => {
         localStorage.removeItem('user')
       }
     }
-
-    setupAxiosInterceptors()
   }
-
 
   const getCurrentUser = async () => {
     if (!token.value) return null
     
     try {
-      const response = await axios.get('/api/user/profile')
+      const response = await api.get('/user/profile') // No /api prefix needed
       if (response.data.success) {
         user.value = response.data.user
         localStorage.setItem('user', JSON.stringify(response.data.user))
@@ -154,7 +127,6 @@ export const useAuth = () => {
     register,
     logout,
     initializeAuth,
-    getCurrentUser,
-    setupAxiosInterceptors
+    getCurrentUser
   }
 }

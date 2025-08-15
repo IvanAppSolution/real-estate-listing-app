@@ -11,3 +11,7 @@ declare module '*/useLayout' {
   import type { UseLayoutReturn } from '@/composables/useLayout'
   export function useLayout(): UseLayoutReturn
 }
+
+// Add this declaration for the global variable
+declare const __API_BASE_URL__: string
+declare const __VUE_PROD_DEVTOOLS__: boolean

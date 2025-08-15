@@ -44,9 +44,7 @@ export default defineConfig(({ mode }) => {
       } : undefined,
     },
     define: {
-      __API_BASE_URL__: isDevelopment 
-        ? JSON.stringify('http://localhost:4000')
-        : JSON.stringify('https://real-estate-listing-server.netlify.app/.netlify/functions'),
+      __API_BASE_URL__: JSON.stringify(process.env.VITE_API_BASE_URL || 'http://localhost:4000'),
       __VUE_PROD_DEVTOOLS__: isDevelopment,
     },
   }
