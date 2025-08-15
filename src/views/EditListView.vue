@@ -56,17 +56,17 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       const response = await api.post(`/api/list/update`, formData);
 
       if (!response.data.success) {
-        toast.add({ summary: "Error while saving", severity: "error" });
+        toast.add({ summary: "Error while saving", severity: "error", life: 3000 });
         return;
       }
-      toast.add({ summary: "Listing saved successfully", severity: "success" });
+      toast.add({ summary: "Listing saved successfully", severity: "success", life: 3000 });
       
     } else {
-      toast.add({ summary: "Please fix the errors in the form", severity: "error" });
+      toast.add({ summary: "Please fix the errors in the form", severity: "error", life: 3000 });
     }
   } catch (error) {
     console.log(error)
-    toast.add({ summary: "Error while saving", severity: "error" })
+    toast.add({ summary: "Error while saving", severity: "error", life: 3000 })
   }
 }
 
@@ -88,14 +88,14 @@ const onDelete = async () => {
       try {
         const response = await api.delete(`/api/list/${id}`);
         if (response.data.success) {
-          toast.add({ summary: "Listing deleted successfully", severity: "success" });
+          toast.add({ summary: "Listing deleted successfully", severity: "success", life: 3000 });
           router.push('/listings');
         } else {
-          toast.add({ summary: "Error while deleting listing", severity: "error" });
+          toast.add({ summary: "Error while deleting listing", severity: "error", life: 3000 });
         }
       } catch (error) {
         console.log(error);
-        toast.add({ summary: "Error while deleting listing", severity: "error" });
+        toast.add({ summary: "Error while deleting listing", severity: "error", life: 3000 });
       }
     },
     reject: () => {

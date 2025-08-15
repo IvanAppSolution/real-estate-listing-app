@@ -19,6 +19,7 @@ declare module 'vue' {
     HighlightsWidget: typeof import('./src/components/home/HighlightsWidget.vue')['default']
     ListFormComponent: typeof import('./src/components/list/ListFormComponent.vue')['default']
     ListListing: typeof import('./src/components/list/ListListing.vue')['default']
+    ProgressBar: typeof import('primevue/progressbar')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SlideFeature: typeof import('./src/components/home/SlideFeature.vue')['default']

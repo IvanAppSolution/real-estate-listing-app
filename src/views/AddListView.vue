@@ -66,15 +66,15 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
         toast.add({ summary: "Listing saved successfully", severity: "success" });
         router.push(`/listings/${response.data.id}`)        
       } else {
-        toast.add({ summary: "Error while saving", severity: "error" });
+        toast.add({ summary: "Error while saving", severity: "error", life: 3000 });
         throw new Error('Failed to save listing');
       }
     } else {
-      toast.add({ summary: "Please fix the errors in the form", severity: "error" });
+      toast.add({ summary: "Please fix the errors in the form", severity: "error", life: 3000 });
     }
   } catch (error) {
     console.log(error)
-    toast.add({ summary: "Error while saving", severity: "error" })
+    toast.add({ summary: "Error while saving", severity: "error", life: 3000 });
   }
 }
 
