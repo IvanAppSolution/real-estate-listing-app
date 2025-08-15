@@ -1,18 +1,13 @@
 <script setup lang="ts" name="ListListings">
-import { onMounted, reactive, computed } from 'vue';
+import { onMounted, reactive, computed, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import api from '@/axios';
-import { RouterLink } from 'vue-router';
 import { Button, IconField, InputIcon, InputText, ProgressSpinner } from 'primevue';
 import type { List } from '../types';
 import Card from '@/components/list/Card.vue';
 
-defineProps({
-  limit: Number,
-  showButton: {
-    type: Boolean,
-    default: false,
-  },
-})
+const route = useRoute();
+const router = useRouter();
 
 const state = reactive({
   lists: [] as List[],
@@ -20,29 +15,44 @@ const state = reactive({
   searchQuery: ''
 })
 
-// Computed property to filter lists based on search query
+let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+const getSearchFromUrl = (): string => {
+  const searchParam = route.query.search;
+  if (typeof searchParam === 'string') {
+    return searchParam;
+  }
+  return '';
+}
+
+const updateUrlWithSearch = (query: string) => {
+  const currentQuery = { ...route.query };
+  
+  if (query.trim()) {
+    currentQuery.search = query;
+  } else {
+    delete currentQuery.search;
+  }
+  
+  router.replace({ 
+    path: route.path, 
+    query: currentQuery 
+  });
+}
+
 const filteredLists = computed(() => {
   if (!state.searchQuery.trim()) {
     return state.lists;
   }
-  console.log('Filtering lists with query:', state.searchQuery);
-  console.log('state.lists:', state.lists);
+
   const query = state.searchQuery.toLowerCase().trim();
   
   return state.lists.filter(list => {
-    // Search in name
     const nameMatch = list.name?.toLowerCase().includes(query);
-    
-    // Search in description
     const descriptionMatch = list.description?.toLowerCase().includes(query);
-    
-    // Search in category
     const categoryMatch = list.category?.toLowerCase().includes(query);
-    
-    // Search in propertyType
     const propertyTypeMatch = list.propertyType?.toLowerCase().includes(query);
     
-    // Search in address fields
     const addressMatch = [
       list.address?.street,
       list.address?.city,
@@ -50,25 +60,49 @@ const filteredLists = computed(() => {
       list.address?.zip
     ].some(field => field?.toLowerCase().includes(query));
     
-    // Return true if any field matches
-    console.log('nameMatch: ', nameMatch);
-    console.log('descriptionMatch: ', descriptionMatch);
-    console.log('categoryMatch: ', categoryMatch);
-    console.log('propertyTypeMatch: ', propertyTypeMatch);
-    console.log('addressMatch: ', addressMatch);
     return nameMatch || descriptionMatch || categoryMatch || propertyTypeMatch || addressMatch;
   });
 });
 
-// Clear search
+
 const clearSearch = () => {
   state.searchQuery = '';
+  updateUrlWithSearch('');
 }
 
+const debouncedUpdateUrl = (query: string) => {
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+  
+  debounceTimer = setTimeout(() => {
+    updateUrlWithSearch(query);
+  }, 300);
+}
+
+watch(
+  () => state.searchQuery,
+  (newQuery) => {
+    debouncedUpdateUrl(newQuery);
+  }
+);
+
+watch(
+  () => route.query.search,
+  (newSearch) => {
+    const searchValue = typeof newSearch === 'string' ? newSearch : '';
+    if (searchValue !== state.searchQuery) {
+      state.searchQuery = searchValue;
+    }
+  }
+);
+
 onMounted(async () => {
+
+  state.searchQuery = getSearchFromUrl();
+  
   try {
     state.isLoading = true;
-    // Fixed: Remove extra /api since it's already in baseURL
     const response = await api.get('/api/list');
     state.lists = response.data.data;
   } catch (error) {
@@ -88,13 +122,13 @@ onMounted(async () => {
           <IconField iconPosition="left" class="">
             <InputIcon class="pi pi-search" />
             <InputText 
-              placeholder="Search" 
+              placeholder="Search..." 
               v-model="state.searchQuery"
+              class="w-full"
               @keyup.enter="() => {}"
             />
           </IconField>
           
-          <!-- Clear search button -->
           <Button 
             v-if="state.searchQuery"
             icon="pi pi-times" 
@@ -118,12 +152,10 @@ onMounted(async () => {
         </div>
       </div>
       
-      <!-- Loading State -->
       <div v-if="state.isLoading" class="text-center text-gray-500 py-6">
         <ProgressSpinner />
       </div>
       
-      <!-- No Results -->
       <div v-else-if="filteredLists.length === 0 && !state.isLoading" class="text-center text-gray-500 py-12">
         <i class="pi pi-search text-4xl mb-4 block"></i>
         <p v-if="state.searchQuery" class="text-lg mb-2">No listings match your search criteria.</p>
@@ -138,7 +170,6 @@ onMounted(async () => {
         />
       </div>
       
-      <!-- Listings Grid -->
       <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
         <Card 
           v-for="list in filteredLists" 
@@ -147,15 +178,5 @@ onMounted(async () => {
         />
       </div>
     </div>
-  </section>
-  
-  <!-- View All Button -->
-  <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
-    <RouterLink
-      to="/listings"
-      class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-    >
-      View All Listings
-    </RouterLink>
   </section>
 </template>
