@@ -1,20 +1,7 @@
 import { ref, computed } from 'vue'
 import api from '@/axios' // Use your custom api instance
 import router from '@/router'
-
-interface User {
-  id: string
-  email: string
-  username?: string
-  [key: string]: unknown
-}
-
-interface AuthResponse {
-  success: boolean
-  message: string
-  token?: string
-  user?: User
-}
+import type { User, AuthResponse } from '@/types'
 
 const token = ref<string | null>(localStorage.getItem('token'))
 const user = ref<User | null>(null)

@@ -11,7 +11,7 @@
             <p>Whether you’re searching for apartments, condos, or rental homes, we make it easy to find a place you’ll love.</p>
           </div>
           <div class="box" style="height: 430px; background-image: url('/images/highlights/1.jpg')">
-            <a href="#" class="hover-effect-flat"></a>
+            <RouterLink to="/listings?search=studio" class="hover-effect-flat"></RouterLink>
               <div  class="box-desc">
                 <h3>Studio</h3>
                 <p>More details</p>
@@ -23,21 +23,21 @@
         <div class="box-wrapper">
         
           <div class="box" style="height: 250px; background-image: url('/images/highlights/2.jpg')">
-            <a href="/find=studio" class="hover-effect-flat"></a>            
+            <RouterLink to="/listings?search=apartment" class="hover-effect-flat"></RouterLink>
              <div class="box-desc">
                 <h3>Apartment</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 250px; background-image: url('/images/highlights/3.jpg')">
-            <a href="#" class="hover-effect-flat"></a>
+            <RouterLink to="/listings?search=single-family-home" class="hover-effect-flat"></RouterLink>
               <div class="box-desc">
                 <h3>Single Family Home</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 250px; background-image: url('/images/highlights/4.jpg')">
-            <a href="#" class="hover-effect-flat"></a>
+            <RouterLink to="/listings?search=shop" class="hover-effect-flat"></RouterLink>
               <div class="box-desc">
                 <h3>Shop</h3>
                 <p>More details</p>
@@ -48,14 +48,14 @@
       <div class="column">
         <div class="box-wrapper">
           <div class="box" style="height: 400px; background-image: url('/images/highlights/5.jpg')">
-            <a href="#" class="hover-effect-flat"></a>
+            <RouterLink to="/listings?search=office" class="hover-effect-flat"></RouterLink>
               <div class="box-desc">
                 <h3>Office</h3>
                 <p>More details</p>
               </div>
           </div>
           <div class="box" style="height: 360px; background-image: url('/images/highlights/6.jpg')">
-            <a href="#" class="hover-effect-flat"></a>
+            <RouterLink to="/listings?search=villa" class="hover-effect-flat"></RouterLink>
               <div class="box-desc">
                 <h3>Villa</h3>
                 <p>More details</p>

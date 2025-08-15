@@ -1,3 +1,18 @@
+export interface User {
+  id: string
+  email: string
+  username?: string
+  role?: string
+  [key: string]: unknown
+}
+
+export interface AuthResponse {
+  success: boolean
+  message: string
+  token?: string
+  user?: User
+}
+
 export interface Job {
   id: string; 
   title: string;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, reactive } from 'vue'
 import { motion, AnimatePresence } from 'motion-v'
 import { Button, IconField, InputIcon, InputText } from 'primevue'
 
@@ -8,7 +8,9 @@ const slideImg = [
   { url: '/images/landing/new-york.jpg', label: 'New York' },
   { url: '/images/landing/miami-beach.jpg', label: 'Miami Beach' },
 ]
-
+const state = reactive({
+  searchQuery: ''
+})
 const currentIndex = ref(0)
 const selectedSlide = ref(slideImg[0])
 const intervalId = ref<number | null>(null)
@@ -19,12 +21,10 @@ const nextSlide = () => {
 }
 
 onMounted(() => {
-  // Start the infinite scrolling animation
-  intervalId.value = setInterval(nextSlide, 4000) // Change every 3 seconds
+  intervalId.value = setInterval(nextSlide, 4000)
 })
 
 onUnmounted(() => {
-  // Clean up the interval when component is unmounted
   if (intervalId.value) {
     clearInterval(intervalId.value)
   }
@@ -60,8 +60,8 @@ onUnmounted(() => {
           <InputIcon>
             <i class="pi pi-search" />
           </InputIcon>
-          <InputText placeholder="Search location" />
-          <Button label="Search" class="!ml-2" />
+          <InputText placeholder="Search location" v-model="state.searchQuery" />
+          <Button as="router-link" :to="`/listings?search=${state.searchQuery}`" label="Search" class="!ml-2" />
         </IconField>
       </div>
       <div class="w-full text-center mt-6 slide-label text-surface-0">

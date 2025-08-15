@@ -19,6 +19,7 @@ import Card from '@/components/list/Card.vue';
 const state = reactive({
   lists: [] as List[],
   isLoading: false,
+  searchQuery: ''
  })
 
  onMounted( async () => {
@@ -43,8 +44,8 @@ const state = reactive({
           <InputIcon>
             <i class="pi pi-search" />
           </InputIcon>
-          <InputText placeholder="Search" />
-          <Button label="Search" class="!ml-2" />
+          <InputText placeholder="Search" v-model="state.searchQuery" />
+          <Button as="router-link" :to="`/listings?search=${state.searchQuery}`" label="Search" class="!ml-2" />
         </IconField>
         <div v-if="state.lists.length" class="text-gray-500 py-6 hidden">Results for :</div>
       </div>
