@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
 import api from '@/axios';
-import { Button} from 'primevue';
+import { Button, ProgressSpinner} from 'primevue';
 import type { List } from '../types';
 import Card from '@/components/list/Card.vue';
 const state = reactive({
@@ -41,7 +41,7 @@ onMounted(async () => {
         </p>
       </div>
       <div v-if="state.isLoading" class="text-center text-gray-500 py-6">
-        Loading...
+        <ProgressSpinner />
       </div>
       <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
         <Card v-for="(list, i) in state.lists" :key="i" :list="list" />

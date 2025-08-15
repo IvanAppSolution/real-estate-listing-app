@@ -25,7 +25,8 @@ const handleSubmit = async ({ valid, values }: FormSubmitEvent) => {
         toast.add({ 
           summary: "Login Successful", 
           detail: "Welcome back!", 
-          severity: "success" 
+          severity: "success",
+          life: 3000
         });
         
         // Redirect to intended page or dashboard
@@ -35,14 +36,16 @@ const handleSubmit = async ({ valid, values }: FormSubmitEvent) => {
         toast.add({ 
           summary: "Login Failed", 
           detail: result.message, 
-          severity: "error" 
+          severity: "error",
+          life: 3000
         });
       }
     } else {
       toast.add({ 
         summary: "Validation Error", 
         detail: "Please fill in all required fields", 
-        severity: "error" 
+        severity: "error",
+        life: 3000
       });
     }
   } catch (error: unknown) {
@@ -50,7 +53,8 @@ const handleSubmit = async ({ valid, values }: FormSubmitEvent) => {
     toast.add({ 
       summary: "Login Error", 
       detail: "An unexpected error occurred", 
-      severity: "error" 
+      severity: "error",
+      life: 3000
     });
   }
 }

@@ -198,9 +198,8 @@ onMounted (async () => {
           </div>
           
           <Button
-            as="a"
-            severity="secondary"
-            :href="`/listings/edit/${id}`"
+            as="router-link" 
+            :to="`/listings/edit/${id}`"
             class="secondary w-64 mr-2"
             >Edit Listing
           </Button>
