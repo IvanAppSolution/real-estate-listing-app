@@ -24,7 +24,7 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string): Promise<AuthResponse> => {
     try {
-      const response = await api.post('/user/login', { // No /api prefix needed
+      const response = await api.post('/api/user/login', { // No /api prefix needed
         email,
         password
       })
@@ -54,7 +54,7 @@ export const useAuth = () => {
 
   const register = async (email: string, password: string, username?: string): Promise<AuthResponse> => {
     try {
-      const response = await api.post('/user/register', { // No /api prefix needed
+      const response = await api.post('/api/user/register', { // No /api prefix needed
         email,
         password,
         username: username || email.split('@')[0]
@@ -106,7 +106,7 @@ export const useAuth = () => {
     if (!token.value) return null
     
     try {
-      const response = await api.get('/user/profile') // No /api prefix needed
+      const response = await api.get('/api/user/profile') // No /api prefix needed
       if (response.data.success) {
         user.value = response.data.user
         localStorage.setItem('user', JSON.stringify(response.data.user))
