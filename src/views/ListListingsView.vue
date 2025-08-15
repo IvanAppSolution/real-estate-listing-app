@@ -23,7 +23,7 @@ const state = reactive({
 
  onMounted( async () => {
   try {
-    
+    state.isLoading = true;
     const response = await api.get('/api/list');
     state.lists = response.data.data;
 
