@@ -41,6 +41,8 @@ const customUploader = (event: FileUploadUploaderEvent) => {
             console.log('Upload successful:', response.data);
             const { data } = response.data;
             state.files.push(...data);
+            totalSize.value = 0;
+            totalSizePercent.value = 0;
             emit('uploadedFiles', state.files);
         })
         .catch(error => {

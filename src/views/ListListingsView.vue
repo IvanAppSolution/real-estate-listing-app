@@ -49,7 +49,7 @@ const state = reactive({
         <div v-if="state.lists.length" class="text-gray-500 py-6 hidden">Results for :</div>
       </div>
       
-      <div v-if="state.isLoading" class="text-center text-gray-500 py-6">Loading...</div>
+      <div v-if="state.isLoading" class="text-center text-gray-500 py-6"><ProgressSpinner /></div>
       <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14">
         <Card v-for="(list, i) in state.lists" :key="i" :list="list" />      </div>
       </div>
