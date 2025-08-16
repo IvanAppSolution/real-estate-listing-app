@@ -120,6 +120,22 @@ const handleSubmit = async ({ valid, values }: FormSubmitEvent) => {
           <div class="text-center">
             <Button as="a" href="/register" variant="link">Don't have an account? Register</Button>
           </div>
+          <div className="flex justify-center items-center">
+            <div className="text-sm text-neutral-500 mt-4">
+              <span className="underline">Test user:</span>
+              <br />
+              <strong>Email:</strong> u1@gmail.com
+              <br />
+              <strong>Password:</strong> pass123
+              <br />
+              <br />
+              <span className="underline">Test admin:</span>
+              <br />
+              <strong>Email:</strong> admin@gmail.com
+              <br />
+              <strong>Password:</strong> pass123
+            </div>
+          </div>
         </div>  
       </div>
     </div>
