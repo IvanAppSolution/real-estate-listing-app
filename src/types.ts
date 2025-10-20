@@ -98,7 +98,6 @@ export interface Feature {
 }
 
 export function mapToInitialValues(list: List) {
-  console.log('mapToInitialValues-list: ', list)
   return {
     id: list.id,
     code: list.code,
