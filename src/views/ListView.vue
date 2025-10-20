@@ -170,9 +170,9 @@ onMounted (async () => {
           </div>
           <h4>Contact</h4>	
           <div class="contact-info">
-            <p>Name: {{ state.list.contact.name }}</p>
-            <p>Email: {{ state.list.contact.email }}</p>
-            <p>Phone: {{ state.list.contact.phone }}</p>
+            <p>Name: {{ state.list?.contact?.name }}</p>
+            <p>Email: {{ state.list?.contact?.email }}</p>
+            <p>Phone: {{ state.list?.contact?.phone }}</p>
           </div>
           <div class="contact-btns mt-4">
           <Button 
