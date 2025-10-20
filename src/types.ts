@@ -98,7 +98,7 @@ export interface Feature {
 }
 
 export function mapToInitialValues(list: List) {
-  // console.log('list: ', list)
+  console.log('mapToInitialValues-list: ', list)
   return {
     id: list.id,
     code: list.code,
@@ -127,29 +127,47 @@ export function mapToInitialValues(list: List) {
     contact_others: list?.contact?.others || "",
     images: list.images || [],
     rating: list.rating || 0,
-    address: getFormAddress(list.address),
-    contact: getFormContact(list.contact)
+    address: getListAddress(list.address),
+    contact: getListContact(list.contact)
   };
 }
 
-export function getFormAddress(values?: List['address']) {
-  console.log('address-value: ', values)
+export function getListAddress(values: List['address']) {
   return {
-    street: (values && values?.street) ? values.street : "",
-    city: (values && values?.city) ? values.city : "",
-    state: (values && values?.state) ? values.state : "",
-    country: (values && values?.country) ? values.country : "",
-    zip: (values && values?.zip) ? values.zip : "",
-    mapUrl: (values && values?.mapUrl) ? values.mapUrl : "",
+    street: (values && values.street) ? values.street : "",
+    city: (values && values.city) ? values.city : "",
+    state: (values && values.state) ? values.state : "",
+    country: (values && values.country) ? values.country : "",
+    zip: (values && values.zip) ? values.zip : "",
+    mapUrl: (values && values.mapUrl) ? values.mapUrl : "",
   };
 }
 
-export function getFormContact(values?: List['contact']) {
-  console.log('contact-value: ', values)
+export function getListContact(values: List['contact']) {
   return {
-    name: (values && values?.name) ? values.name : "",
-    email: (values && values?.email) ? values.email : "",
-    phone: (values && values?.phone) ? values.phone : "",
-    others: (values && values?.others) ? values.others : "",
+    name: (values && values.name) ? values.name : "",
+    email: (values && values.email) ? values.email : "",
+    phone: (values && values.phone) ? values.phone : "",
+    others: (values && values.others) ? values.others : "",
+  };
+}
+
+export function getFormAddress(values: ListForm) {
+  return {
+    street: (values && values.address_city) ? values.address_city : "",
+    city: (values && values.address_city) ? values.address_city : "",
+    state: (values && values.address_state) ? values.address_state : "",
+    country: (values && values.address_country) ? values.address_country : "",
+    zip: (values && values.address_zip) ? values.address_zip : "",
+    mapUrl: (values && values.address_mapUrl) ? values.address_mapUrl : "",
+  };
+}
+
+export function getFormContact(values: ListForm) {
+  return {
+    name: (values && values.contact_name) ? values.name : "",
+    email: (values && values.contact_email) ? values.contact_email : "",
+    phone: (values && values.contact_phone) ? values.contact_phone : "",
+    others: (values && values.contact_others) ? values.contact_others : "",
   };
 }

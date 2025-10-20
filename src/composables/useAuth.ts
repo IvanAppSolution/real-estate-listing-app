@@ -4,7 +4,18 @@ import router from '@/router'
 import type { User, AuthResponse } from '@/types'
 
 const token = ref<string | null>(localStorage.getItem('token'))
-const user = ref<User | null>(null)
+const user = ref<User | null>(getUserInStorage())
+
+function getUserInStorage():User | null{
+  const userString = localStorage.getItem('user');
+  if (!userString) return null;
+  try {
+    return JSON.parse(userString);
+  } catch (error) {
+    console.error('Error parsing stored user data:', error);
+    return null;
+  }
+}
 
 export const useAuth = () => {
   const isAuthenticated = computed(() => !!token.value)

@@ -156,7 +156,7 @@ const emit = defineEmits<{
               >Street</label>
             <InputText
               type="text"
-              id="street_address"
+              id="address_street"
               name="address_street"
               class="border rounded w-full py-2 px-3"
               />
@@ -170,7 +170,7 @@ const emit = defineEmits<{
             <InputText
               type="text"
               id="city"
-              name="address_city" 
+              name="address_city"
               class="border rounded w-full py-2 px-3"
               required/>
           </div>
@@ -269,7 +269,6 @@ const emit = defineEmits<{
               id="contact_phone"
               name="contact_phone"
               class="border rounded w-full py-2 px-3"
-              required
             />            
           </div>
           <div class="mb-4 w-1/2">

@@ -44,7 +44,7 @@ const initialValues = reactive({
     contact_others: "",
     address: {},
     contact: {}
-  });
+  } as ListForm);
 
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
@@ -56,13 +56,18 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       }  
       Object.assign(values.address, getFormAddress(values as ListForm));
       Object.assign(values.contact, getFormContact(values as ListForm));
-      values.userId = user.value?.id;
+      Object.assign(values, { user: user.value })
+      
+      const { address_city: _1, address_country: _2, address_mapUrl: _3, address_state: _4, address_state: _5,
+        address_street: _6, address_zip: _7, contact_email: _8, contact_name:_9, contact_others: _10, contact_phone: _11,
+        ...dataList  } = values;
+
       formData.append('token', JSON.stringify(token.value));
-      formData.append('listData', JSON.stringify(values));
-      const response = await api.post(`/api/list/add`, formData); 
+      formData.append('listData', JSON.stringify(dataList));
+      const response = await api.post(`/api/list`, formData);
 
       // console.log('response: ', response)
-      if (response.status == 200) {
+      if (response.data.success) {
         toast.add({ summary: "Listing saved successfully", severity: "success" });
         router.push(`/listings/${response.data.id}`)        
       } else {
