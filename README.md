@@ -13,7 +13,7 @@ ExpressJs backend server
 Hosted in Netlify serverless  
 
 <br/>
-Live: [Real Estate App](https://real-estate-listing-proj.netlify.app)  
+Live: https://real-estate-listing-proj.netlify.app  <br/>
 Backend repo: https://github.com/IvanAppSolution/real-estate-listing-server  
 
 

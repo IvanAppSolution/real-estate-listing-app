@@ -11,12 +11,12 @@ export const useAuth = () => {
 
   const login = async (email: string, password: string): Promise<AuthResponse> => {
     try {
-      const response = await api.post('/api/user/login', { // No /api prefix needed
+      const response = await api.post('/api/auth/login', { // No /api prefix needed
         email,
         password
       })
 
-      if (response.data.success) {
+      if (response.status) {
         token.value = response.data.token
         localStorage.setItem('token', response.data.token)
    

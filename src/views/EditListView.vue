@@ -7,14 +7,14 @@ import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';
-import { type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
+import { type List, type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
 import { type FormSubmitEvent } from '@primevue/forms';
 import ProgressSpinner from 'primevue/progressspinner';
 import FileUploader from '@/components/FileUploader.vue';
 import ListFormComponent from '@/components/list/ListFormComponent.vue';
 import { useAuth } from '@/composables/useAuth';
 
-const { user } = useAuth();
+const { user, token } = useAuth();
 const route = useRoute();
 const id = route.params.id;
 const toast = useToast();
@@ -47,13 +47,16 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
       if (initialValues.images.length > 0) {
         Object.assign(values.images, initialValues.images);
       }   
-      Object.assign(values.address, getFormAddress(values as ListForm));
-      Object.assign(values.contact, getFormContact(values as ListForm));
-      formData.append('id', JSON.stringify(id));      
-      // formData.append('token', JSON.stringify(token.value));
+      Object.assign(values.address, getFormAddress(values as List['address']));
+      Object.assign(values.contact, getFormContact(values as List['contact']));
+      // console.log('values.address: ', values.address);
+      // console.log('values.contact: ', values.contact);
+      // console.log('values: ', values);
+       
+      formData.append('token', JSON.stringify(token.value));
       formData.append('listData', JSON.stringify(values));
       // console.log('formData: ', formData);
-      const response = await api.post(`/api/list/update`, formData);
+      const response = await api.put(`/api/list/` + id, formData);
 
       if (!response.data.success) {
         toast.add({ summary: "Error while saving", severity: "error", life: 3000 });

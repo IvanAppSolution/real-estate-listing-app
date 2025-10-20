@@ -5,28 +5,6 @@ import { useAuth } from '@/composables/useAuth'
 
 const { isAuthenticated, logout } = useAuth()
 
-function smoothScroll(id: string) {
-  document.body.click()
-  const element = document.getElementById(id)
-  if (element) {
-    element.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-  }
-}
-
-const clickMenuButton = () => {
-  const menu = document.querySelector('.menu-content')
-  if (menu) {
-    menu.classList.toggle('hidden')
-  }
-  const button = document.querySelector('.top-bar-container button')
-  if (button) {
-    button.classList.toggle('hidden')
-  }
-}
-
 const handleLogout = () => {
   logout()
 }
