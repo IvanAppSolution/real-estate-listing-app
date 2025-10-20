@@ -7,7 +7,7 @@ import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast';
 import { ConfirmDialog } from 'primevue';
 import { useConfirm } from 'primevue/useconfirm';
-import { type List, type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
+import { type ListForm, getFormAddress, getFormContact, mapToInitialValues } from '@/types';
 import { type FormSubmitEvent } from '@primevue/forms';
 import ProgressSpinner from 'primevue/progressspinner';
 import FileUploader from '@/components/FileUploader.vue';
@@ -41,20 +41,19 @@ onMounted(async () => {
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
-      // console.log('values: ', values);
-      values.userId = user.value?.id;
       const formData = new FormData();
       if (initialValues.images.length > 0) {
         Object.assign(values.images, initialValues.images);
       }   
-      Object.assign(values.address, getFormAddress(values as List['address']));
-      Object.assign(values.contact, getFormContact(values as List['contact']));
-      // console.log('values.address: ', values.address);
-      // console.log('values.contact: ', values.contact);
-      // console.log('values: ', values);
-       
+      Object.assign(values.address, getFormAddress(values as ListForm));
+      Object.assign(values.contact, getFormContact(values as ListForm));
+      Object.assign(values, { user: user.value })
+      
+      const { address_city: _1, address_country: _2, address_mapUrl: _3, address_state: _4, address_state: _5,
+        address_street: _6, address_zip: _7, contact_email: _8, contact_name:_9, contact_others: _10, contact_phone: _11,
+        ...dataList  } = values;
       formData.append('token', JSON.stringify(token.value));
-      formData.append('listData', JSON.stringify(values));
+      formData.append('listData', JSON.stringify(dataList));
       // console.log('formData: ', formData);
       const response = await api.put(`/api/list/` + id, formData);
 

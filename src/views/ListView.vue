@@ -223,7 +223,6 @@ onMounted (async () => {
   }
 
   .block-title-wrap {
-    border-bottom: 1px solid #dce0e0;
     margin-bottom: 30px; 
   }
 
