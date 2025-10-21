@@ -19,7 +19,7 @@ const initialValues = reactive({
     code: "",
     name: "",
     description: "",
-    userId: "",
+    userId: user.value?.id,
     images: [] as string[],
     numBedroom: 1,
     numBathroom: 1,
@@ -43,7 +43,8 @@ const initialValues = reactive({
     contact_phone: "",
     contact_others: "",
     address: {},
-    contact: {}
+    contact: {},
+    user: user.value,
   } as ListForm);
 
 const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
@@ -51,19 +52,33 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
     if (valid) {
       // console.log('values1: ', values);
       const formData = new FormData();
-      if (initialValues.images.length > 0) {
-        Object.assign(values.images, initialValues.images);
-      }  
-      Object.assign(values.address, getFormAddress(values as ListForm));
-      Object.assign(values.contact, getFormContact(values as ListForm));
-      Object.assign(values, { user: user.value })
+      const address = getFormAddress(values as ListForm);
+      const contact = getFormContact(values as ListForm);
       
-      const { address_city: _1, address_country: _2, address_mapUrl: _3, address_state: _4, address_state: _5,
-        address_street: _6, address_zip: _7, contact_email: _8, contact_name:_9, contact_others: _10, contact_phone: _11,
-        ...dataList  } = values;
+      const { 
+        address_city: _1, 
+        address_country: _2, 
+        address_mapUrl: _3, 
+        address_state: _4, 
+        address_street: _5, 
+        address_zip: _6, 
+        contact_email: _7, 
+        contact_name: _8, 
+        contact_others: _9, 
+        contact_phone: _10,
+        ...filteredList  
+      } = values;
+      
+      // Add address and contact object
+      const listData = {
+        ...filteredList,
+        address,
+        contact,
+        images: initialValues.images
+      };
 
       formData.append('token', JSON.stringify(token.value));
-      formData.append('listData', JSON.stringify(dataList));
+      formData.append('listData', JSON.stringify(listData));
       const response = await api.post(`/api/list`, formData);
 
       // console.log('response: ', response)
@@ -130,8 +145,8 @@ const responsiveOptions = ref([
 
 <style scoped>
   .p-galleria-thumbnail img {
-    width: 100px !important;
-    height: 100px !important;
+    width: 80px !important;
+    height: 80px !important;
     object-fit: cover;
     overflow: hidden;
   }

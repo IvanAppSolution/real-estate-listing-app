@@ -14,7 +14,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (event: 'submit', { valid, values } : FormSubmitEvent): void;
-  (event: 'onDelete'): void;
+  (event: 'delete'): void;
 }>();
 
 
@@ -79,7 +79,7 @@ const emit = defineEmits<{
               Price
             </label>
             <InputText
-              type="text"
+              type="number"
               id="price"
               name="price"
               class="border rounded w-full py-2 px-3 mb-2"
@@ -203,6 +203,19 @@ const emit = defineEmits<{
               
               />
           </div>
+          <div class="w-1/2 mb-4 hidden">
+            <label
+              for="address_country"
+              class="block text-gray-700 font-bold mb-2"
+              >Country</label>
+            <InputText
+              type="text"
+              id="address_country"
+              name="address_country"
+              class="border rounded w-full py-2 px-3"
+              
+              />
+          </div>
         </div>
         <div class="flex gap-4">
           <div class="w-1/2 mb-4">
@@ -284,28 +297,30 @@ const emit = defineEmits<{
             />
           </div>
         </div>   
-        
+        <br/>
         <div>
           <InputText type="hidden" name="userId" :value="initialValues.userId" />
           <InputText type="hidden" name="images" :value="initialValues.images" />
-          <InputText type="hidden" name="address" :value="initialValues.address" />
-          <InputText type="hidden" name="contact" :value="initialValues.contact" />
+          
           <Button
-            class="w-32 mr-4"
+            class="w-40 mr-4"
             type="submit">
             Save
           </Button>
            <Button
+              type="button"
               severity="danger"
-              class=" mr-4"
-              @click="emit('onDelete')"
+              class="w-40 mr-4"
+              @click="emit('delete')"
             >
               Delete Listing
             </Button>
           <Button
+            type="button"
             @click="router.back()"
             severity="secondary"
-            class="w-32 mr-4">
+            class="w-40 mr-4"
+            variant="outlined">            
             Cancel
           </Button>
         </div>

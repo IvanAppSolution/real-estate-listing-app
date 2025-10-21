@@ -31,17 +31,25 @@ const handleSubmit = async () => {
       initialValues.value.password
     );
 
-    if (response) {
+    if (response.success) {
       toast.add({
         severity: 'success',
         summary: 'Registration Successful',
-        detail: 'Your account has been created!',
-        life: 3000
+        detail: 'Please input to login.',
+        life: 5000
       });
       
-      router.push('/login');
+      setTimeout(() => {
+        router.replace('/login');
+      }, 2000);
+      
     } else {
-      throw new Error('Registration failed');
+      toast.add({
+        severity: 'error',
+        summary: 'Registration Failed',
+        detail: response?.message ? response.message : "Error in registration!",
+        life: 5000
+      });
     }
   } catch (error: unknown) {
     const errorMessage = error instanceof Error 
@@ -52,7 +60,7 @@ const handleSubmit = async () => {
       severity: 'error',
       summary: 'Registration Failed',
       detail: errorMessage,
-      life: 3000
+      life: 5000
     });
   }
 };

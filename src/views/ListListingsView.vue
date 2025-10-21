@@ -34,7 +34,7 @@ const updateUrlWithSearch = (query: string) => {
     delete currentQuery.search;
   }
   
-  router.replace({ 
+  void router.replace({ 
     path: route.path, 
     query: currentQuery 
   });
@@ -103,7 +103,7 @@ onMounted(async () => {
   
   try {
     state.isLoading = true;
-    const response = await api.get('/api/list');
+    const response = await api.get('/api/list/myListings');
     state.lists = response.data.data;
   } catch (error) {
     console.log('Error fetching lists. ', error)
@@ -114,30 +114,40 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="px-4 py-5"> 
-    <div class="container-xl lg:container m-auto">
+  <div class="container m-auto py-8 px-8 md:mx-12 lg:mx-12 lg:px-6">
+    <div class="px-6 mb-4 md:m-0 lg:m-0">
       <!-- Search Section -->
-      <div class="mt-4">
-        <div class="flex flex-col md:flex-row gap-4 items-stretch md:items-center">
-          <IconField iconPosition="left" class="">
-            <InputIcon class="pi pi-search" />
-            <InputText 
-              placeholder="Search..." 
-              v-model="state.searchQuery"
-              class="w-full"
-              @keyup.enter="() => {}"
+      <div class="">
+        <div class="flex justify-between flex-col md:flex-row gap-4 items-stretch md:items-center">
+          <div class="flex">
+            <IconField iconPosition="left" class="">
+              <InputIcon class="pi pi-search" />
+              <InputText 
+                placeholder="Search..." 
+                v-model="state.searchQuery"
+                class="w-full"
+                @keyup.enter="() => {}"
+              />
+            </IconField>
+            
+            <Button 
+              v-if="state.searchQuery"
+              icon="pi pi-times" 
+              severity="secondary" 
+              outlined 
+              @click="clearSearch"
+              v-tooltip="'Clear search'"
+              class="shrink-0 ml-2"
             />
-          </IconField>
+          </div>
           
           <Button 
-            v-if="state.searchQuery"
-            icon="pi pi-times" 
-            severity="secondary" 
-            outlined 
-            @click="clearSearch"
-            v-tooltip="'Clear search'"
-            class="shrink-0"
+            label="Add Listing" 
+            as="router-link" 
+            to="/listings/add" 
+            class="ml-4" 
           />
+         
         </div>
         
         <!-- Search results info -->
@@ -170,7 +180,7 @@ onMounted(async () => {
         />
       </div>
       
-      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 justify-center">
         <Card 
           v-for="list in filteredLists" 
           :key="list.id" 
@@ -178,5 +188,5 @@ onMounted(async () => {
         />
       </div>
     </div>
-  </section>
+  </div>
 </template>

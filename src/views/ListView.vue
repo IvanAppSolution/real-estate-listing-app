@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted  } from 'vue';
 import { useRoute } from 'vue-router';
 import type { List } from '../types';
-import { Galleria, ProgressSpinner } from 'primevue'; 
+import { Galleria, ProgressSpinner, useToast } from 'primevue'; 
 import api from '@/axios';
 import router from '@/router';
 import { useAuth } from '@/composables/useAuth';
@@ -10,6 +10,7 @@ import { useAuth } from '@/composables/useAuth';
 const route = useRoute();
 const id = route.params.id;
 const { user } = useAuth();
+const toast = useToast();
 
 const state = reactive({
   list: {} as List,
@@ -39,7 +40,6 @@ onMounted (async () => {
     console.log('error', error)
   }
 })
-
 
 </script>
 
@@ -185,6 +185,7 @@ onMounted (async () => {
             severity="secondary"
             class="w-32"
             disabled
+            variant="outlined"
           >
             Message
           </Button>
@@ -200,13 +201,14 @@ onMounted (async () => {
           <Button
             as="router-link" 
             :to="`/listings/edit/${id}`"
-            class="secondary w-64 mr-2"
+            class="secondary w-40 mr-2"
             >Edit Listing
           </Button>
           <Button
             @click="router.back()"
             severity="secondary"
-            class="w-64">
+            variant="outlined"
+            class="w-40">
             Cancel
           </Button>
         </div>
