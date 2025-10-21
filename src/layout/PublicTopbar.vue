@@ -6,12 +6,9 @@ import { useAuth } from '@/composables/useAuth'
 const { isAuthenticated, logout } = useAuth()
 
 const handleLogout = () => {
+  console.log('logout')
   logout()
 }
-
-
-console.log('API Base URL:', __API_BASE_URL__)
-
 </script>
 
 <template>
@@ -56,20 +53,21 @@ console.log('API Base URL:', __API_BASE_URL__)
           </li>
           <li>
             <RouterLink
-              to="/listings"
-              class="px-0 py-4 text-surface-0 font-medium text-xl"
-            >
-              <span>Listings</span>
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
               to="/dashboard"
               class="px-0 py-4 text-surface-0 font-medium text-xl"
             >
               <span>Dashboard</span>
             </RouterLink>
           </li>
+          <li>
+            <RouterLink
+              to="/listings"
+              class="px-0 py-4 text-surface-0 font-medium text-xl"
+            >
+              <span>Listings</span>
+            </RouterLink>
+          </li>
+          
          
         </ul>
         <div class="flex border-t lg:border-t-0 border-surface py-4 lg:py-0 mt-4 lg:mt-0 gap-2">

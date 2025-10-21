@@ -3,7 +3,11 @@ import { RouterLink } from 'vue-router';
 import type { List } from '../../types';
 import CardFeature from './CardFeature.vue';
 
-const props = defineProps({
+defineOptions({
+  name: 'ListingCard'
+});
+
+defineProps({
   list: Object as () => List
 }) 
 
@@ -47,7 +51,7 @@ const props = defineProps({
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  max-width: 260px;
+  /* max-width: 260px; */
 }
 
 .item-container {

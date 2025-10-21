@@ -31,7 +31,7 @@ onMounted(async () => {
   try {
     const response = await api.get(`/api/list/${id}`);
     Object.assign(initialValues, mapToInitialValues(response.data.data));
-    // console.log('initialValues: ', initialValues);
+    console.log('edit listing-initialValues: ', initialValues);
     state.isReady = true;
   } catch(error) {
     console.log('error', error)
@@ -42,19 +42,41 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
       const formData = new FormData();
-      if (initialValues.images.length > 0) {
-        Object.assign(values.images, initialValues.images);
-      }   
-      Object.assign(values.address, getFormAddress(values as ListForm));
-      Object.assign(values.contact, getFormContact(values as ListForm));
-      Object.assign(values, { user: user.value })
+      // console.log('values: ', values);
+      // if (initialValues.images.length > 0) {
+      //   Object.assign(values.images, initialValues.images);
+      // }   
+      const address = getFormAddress(values as ListForm);
+      const contact = getFormContact(values as ListForm);
       
-      const { address_city: _1, address_country: _2, address_mapUrl: _3, address_state: _4, address_state: _5,
-        address_street: _6, address_zip: _7, contact_email: _8, contact_name:_9, contact_others: _10, contact_phone: _11,
-        ...dataList  } = values;
+      const { 
+        address_city: _1, 
+        address_country: _2, 
+        address_mapUrl: _3, 
+        address_state: _4, 
+        address_street: _5, 
+        address_zip: _6, 
+        contact_email: _7, 
+        contact_name: _8, 
+        contact_others: _9, 
+        contact_phone: _10,
+        userId: _userId,
+        ...filteredList  
+      } = values;
+      
+      // Add address and contact object
+      const listData = {
+        ...filteredList,
+        address,
+        contact,
+        images: initialValues.images
+      };
+      
+      // console.log('listData: ', listData);   
       formData.append('token', JSON.stringify(token.value));
-      formData.append('listData', JSON.stringify(dataList));
-      // console.log('formData: ', formData);
+      formData.append('listData', JSON.stringify(listData));
+
+      
       const response = await api.put(`/api/list/` + id, formData);
 
       if (!response.data.success) {
@@ -73,9 +95,10 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
 }
 
 const onDelete = async () => {
+  console.log('Delete listing..')
   confirm.require({
-    message: 'Are you sure you want to delete this listing? This action cannot be undone.',
-    header: 'Delete Confirmation',
+    message: 'Are you sure to delete listing?',
+    header: 'Delete Listing',
     icon: 'pi pi-exclamation-triangle',
     rejectProps: {
       label: 'Cancel',
@@ -154,9 +177,9 @@ const responsiveOptions = ref([
 </template>
 
 <style scoped>
-  .p-galleria-thumbnail img {
-    width: 100px !important;
-    height: 100px !important;
+  .p-galleria-thumbnail-item img {
+    width: 80px !important;
+    height: 80px !important;
     object-fit: cover;
     overflow: hidden;
   }

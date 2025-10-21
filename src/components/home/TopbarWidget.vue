@@ -46,18 +46,18 @@ import { RouterLink } from 'vue-router'
         </li>
         <li>
           <RouterLink
-            to="/listings"
-            class="px-0 py-4 text-surface-0 font-medium text-xl"
-          >
-            <span>Listings</span>
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink
             to="/dashboard"
             class="px-0 py-4 text-surface-0 font-medium text-xl"
           >
             <span>Dashboard</span>
+          </RouterLink>
+        </li>
+        <li>
+          <RouterLink
+            to="/listings"
+            class="px-0 py-4 text-surface-0 font-medium text-xl"
+          >
+            <span>Listings</span>
           </RouterLink>
         </li>
       </ul>
