@@ -14,7 +14,7 @@ import FileUploader from '@/components/FileUploader.vue';
 import ListFormComponent from '@/components/list/ListFormComponent.vue';
 import { useAuth } from '@/composables/useAuth';
 
-const { user, token } = useAuth();
+const { token } = useAuth();
 const route = useRoute();
 const id = route.params.id;
 const toast = useToast();
@@ -31,7 +31,7 @@ onMounted(async () => {
   try {
     const response = await api.get(`/api/list/${id}`);
     Object.assign(initialValues, mapToInitialValues(response.data.data));
-    console.log('edit listing-initialValues: ', initialValues);
+    // console.log('edit listing-initialValues: ', initialValues);
     state.isReady = true;
   } catch(error) {
     console.log('error', error)
@@ -42,10 +42,6 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
   try {
     if (valid) {
       const formData = new FormData();
-      // console.log('values: ', values);
-      // if (initialValues.images.length > 0) {
-      //   Object.assign(values.images, initialValues.images);
-      // }   
       const address = getFormAddress(values as ListForm);
       const contact = getFormContact(values as ListForm);
       
@@ -95,7 +91,6 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
 }
 
 const onDelete = async () => {
-  console.log('Delete listing..')
   confirm.require({
     message: 'Are you sure to delete listing?',
     header: 'Delete Listing',
@@ -114,7 +109,7 @@ const onDelete = async () => {
         const response = await api.delete(`/api/list/${id}`);
         if (response.data.success) {
           toast.add({ summary: "Listing deleted successfully", severity: "success", life: 3000 });
-          router.push('/listings');
+          void router.push('/listings');
         } else {
           toast.add({ summary: "Error while deleting listing", severity: "error", life: 3000 });
         }
@@ -122,9 +117,6 @@ const onDelete = async () => {
         console.log(error);
         toast.add({ summary: "Error while deleting listing", severity: "error", life: 3000 });
       }
-    },
-    reject: () => {
-      // User cancelled, do nothing
     }
   });
 }
