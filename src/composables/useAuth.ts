@@ -18,6 +18,7 @@ function getUserInStorage():User | null{
 }
 
 export const useAuth = () => {
+  console.log('useAuth-token.value: ', token.value)
   const isAuthenticated = computed(() => !!token.value)
 
   const login = async (email: string, password: string): Promise<AuthResponse> => {
@@ -85,7 +86,9 @@ export const useAuth = () => {
     console.log('Initializing auth state...')
     const storedToken = localStorage.getItem('token')
     const storedUser = localStorage.getItem('user')
-    
+    console.log('storedToken: ', storedToken)
+    console.log('storedUser: ', storedUser)
+
     if (storedToken) {
       token.value = storedToken
     }

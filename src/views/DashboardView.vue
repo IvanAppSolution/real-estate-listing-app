@@ -53,7 +53,7 @@ onMounted(() => {
   <div class="container m-auto py-8 px-8 md:mx-12 lg:mx-12 lg:px-6">
     <div class="px-6 md:m-0 lg:m-0" style="min-height: 500px;">
       <div class="flex justify-between">
-        <h1 class=""></h1>
+        <h1 class="text-xl">My Listings</h1>
         <p>
           <Button 
             label="Add Listing" 

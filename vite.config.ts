@@ -5,9 +5,14 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ mode }) => {
-  const isDevelopment = mode === 'development'
+  
   const isProduction = mode === 'production'
-  const baseURL = isProduction ? 'https://real-estate-listing-server.netlify.app/.netlify/functions' : 'http://localhost:4000'
+  const isProductionNest = mode === 'production-nest'
+  let baseURL = isProductionNest ? 'https://real-estate-listing-nest-server.netlify.app/.netlify/functions' : 'https://real-estate-listing-server.netlify.app/.netlify/functions';
+  const isDevelopment = mode === 'development'
+  if (isDevelopment) {
+    baseURL = 'http://localhost:5000'
+  }
 
   return {
     plugins: [

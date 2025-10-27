@@ -1,22 +1,21 @@
 import axios from 'axios'
+import { getApiBaseUrl } from './config/api'
 
-const api = axios.create({
-  baseURL: __API_BASE_URL__,
-  withCredentials: true,
-  timeout: 10000,
+// Create axios instance with dynamic base URL
+const instance = axios.create({
+  baseURL: getApiBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-api.interceptors.request.use(
+// Request interceptor - add auth token
+instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token')
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
-    
     return config
   },
   (error) => {
@@ -24,25 +23,24 @@ api.interceptors.request.use(
   }
 )
 
-// Add response interceptor with 401 handling
-api.interceptors.response.use(
-  (response) => {
-    return response
-  },
+// Response interceptor - handle errors
+instance.interceptors.response.use(
+  (response) => response,
   (error) => {
-    console.error('API Error:', error.response?.data || error.message)
-    
-    // Handle unauthorized access
     if (error.response?.status === 401) {
-      // Clear auth data
+      // Unauthorized - clear token and redirect to login
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      // Redirect to login (you might want to use router here)
       window.location.href = '/login'
     }
-    
     return Promise.reject(error)
   }
 )
 
-export default api
+// Function to update base URL when server changes
+export function updateApiBaseUrl() {
+  instance.defaults.baseURL = getApiBaseUrl()
+  console.log(`📡 API Base URL updated to: ${instance.defaults.baseURL}`)
+}
+
+export default instance
