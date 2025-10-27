@@ -1,142 +1,279 @@
-<script setup lang="ts" name="UserLogin">
-import { Form, type FormSubmitEvent } from '@primevue/forms';
-import { InputGroup, InputGroupAddon, InputText, Button, Toast } from 'primevue'
-import { useToast } from 'primevue/usetoast';
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useToast } from 'primevue/usetoast'
+import { 
+  getAvailableServers, 
+  getCurrentServer, 
+  setApiServer, 
+  type ServerType 
+} from '@/config/api'
+import axios, { updateApiBaseUrl } from '@/axios' // ← Use your existing axios!
 import { useAuth } from '@/composables/useAuth'
 
-const toast = useToast();
-const router = useRouter();
-const route = useRoute();
-const { login } = useAuth();
 
-const initialValues = ref({
-  email: '',
-  password: ''
-});
+const { login, token } = useAuth();
+const router = useRouter()
+const toast = useToast()
 
-const handleSubmit = async ({ valid, values }: FormSubmitEvent) => {
+// Environment info
+const isDev = import.meta.env.DEV
+
+// Form data
+const email = ref('')
+const password = ref('')
+const selectedServer = ref<ServerType>(getCurrentServer())
+const availableServers = getAvailableServers()
+
+// UI state
+const loading = ref(false)
+const error = ref('')
+
+// Computed property for current server info
+const currentServerInfo = computed(() => {
+  return availableServers.find(s => s.value === selectedServer.value)
+})
+
+// Update server when selection changes
+function handleServerChange() {
+  setApiServer(selectedServer.value)
+  updateApiBaseUrl() // Update axios base URL
+}
+
+// Login function - use your existing axios
+async function handleLogin() {
+  error.value = ''
+  loading.value = true
+
   try {
-    if (valid) {
-      const result = await login(values.email, values.password);
+    // Ensure we're using the selected server
+    setApiServer(selectedServer.value)
+    updateApiBaseUrl()
+
+    // Use your existing axios instance
+    const response = await login(email.value,password.value)
+ 
+    if (response.success) {
+ 
+      toast.add({
+        severity: 'success',
+        summary: 'Login Successful',
+        detail: 'Redirecting to dashboard...',
+        life: 2000
+      })
+
+      router.push('/dashboard')
       
-      if (result.success) {
-        toast.add({ 
-          summary: "Login Successful", 
-          detail: "Welcome back!", 
-          severity: "success",
-          life: 3000
-        });
-        
-        // Redirect to intended page or dashboard
-        const redirectPath = route.query.redirect as string || '/dashboard';
-        router.replace(redirectPath);
-      } else {
-        toast.add({ 
-          summary: "Login Failed", 
-          detail: result.message, 
-          severity: "error",
-          life: 3000
-        });
-      }
     } else {
-      toast.add({ 
-        summary: "Validation Error", 
-        detail: "Please fill in all required fields", 
-        severity: "error",
-        life: 3000
-      });
+      error.value = response.data.message || 'Login failed'
+      toast.add({
+        severity: 'error',
+        summary: 'Login Failed',
+        detail: error.value,
+        life: 5000
+      })
     }
-  } catch (error: unknown) {
-    console.error('Login error:', error);
-    toast.add({ 
-      summary: "Login Error", 
-      detail: "An unexpected error occurred", 
-      severity: "error",
-      life: 3000
-    });
+  } catch (err: any) {
+    console.error('Login error:', err)
+    
+    const errorMessage = err.response?.data?.message || err.message || 'Connection refused. Is the server running?'
+    error.value = errorMessage
+    
+    toast.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: errorMessage,
+      life: 5000
+    })
+  } finally {
+    loading.value = false
   }
 }
+
+// Load saved server on mount
+onMounted(() => {
+  selectedServer.value = getCurrentServer()
+  updateApiBaseUrl() // Ensure axios uses correct URL
+})
 </script>
 
 <template>
-    <div class="container m-auto py-8 px-8 md:mx-12 lg:mx-12 lg:px-6 flex-grow">
-      <div class="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0 lg:m-0"
-          style="min-height: 500px;">
-        <Toast />
-        <div class="card flex flex-col gap-4 w-1/2 mx-auto">
-          <h2 class="text-2xl font-bold mb-6">Login</h2>
-          
-          <Form :initialValues="initialValues" :validateOnBlur="true" @submit="handleSubmit" class="w-full ">
-            <div class="mb-4">
-              <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-at"></i>
-                </InputGroupAddon>
-                <InputText 
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Email" 
-                  required
-                  class="w-full"
-                />
-              </InputGroup>
-            </div>
-            
-            <div class="mb-6">
-              <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
-              <InputGroup>
-                <InputGroupAddon>
-                  <i class="pi pi-lock"></i>
-                </InputGroupAddon>
-                <InputText 
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Password" 
-                  required
-                  class="w-full"
-                />
-              </InputGroup>
-            </div>
-            
-            <div class="flex my-4">
-              <Button 
-                type="submit"
-                label="Login" 
-                icon="pi pi-user" 
-                class="w-full mx-auto"
-              />   
-            </div>
-          </Form>
-          
-          <hr class="h-0 border-t m-2">
-          <div class="-mt-8 text-center text-xs">
-            <span class="bg-white px-2 text-gray-500">OR</span>
-          </div>
-          <div class="text-center">
-            <Button as="a" href="/register" variant="link">Don't have an account? Register</Button>
-          </div>
-          <div className="flex justify-center items-center">
-            <div className="text-sm text-neutral-500 mt-4">
-              <span className="underline">Test user:</span>
-              <br />
-              <strong>Email:</strong> u1@gmail.com
-              <br />
-              <strong>Password:</strong> pass123
-              <br />
-              <br />
-              <span className="underline">Test admin:</span>
-              <br />
-              <strong>Email:</strong> admin@gmail.com
-              <br />
-              <strong>Password:</strong> pass123
-            </div>
-          </div>
-        </div>  
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Environment Badge -->
+      <div v-if="isDev" class="env-badge dev">
+        DEV MODE
+      </div>
+
+      <h2>Login</h2>
+
+      <!-- Server Selection Dropdown -->
+      <div v-if="availableServers.length > 1" class="form-group">
+        <label for="server">API Server</label>
+        <select
+          id="server"
+          v-model="selectedServer"
+          @change="handleServerChange"
+          class="form-control"
+        >
+          <option
+            v-for="server in availableServers"
+            :key="server.value"
+            :value="server.value"
+          >
+            {{ server.label }}
+          </option>
+        </select>
+        <small class="server-info">
+          {{ currentServerInfo?.description }}
+        </small>
+      </div>
+
+      <!-- Login Form -->
+      <form @submit.prevent="handleLogin">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            v-model="email"
+            type="email"
+            required
+            placeholder="Enter your email"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="password"
+            type="password"
+            required
+            placeholder="Enter your password"
+            class="form-control"
+          />
+        </div>
+
+        <div v-if="error" class="error-message">
+          {{ error }}
+        </div>
+
+        <button
+          type="submit"
+          :disabled="loading"
+          class="btn-login"
+        >
+          {{ loading ? 'Logging in...' : 'Login' }}
+        </button>
+      </form>
+
+      <!-- Debug Info -->
+      <div v-if="isDev" class="debug-info">
+        <small>API: {{ currentServerInfo?.url }}</small>
       </div>
     </div>
+  </div>
 </template>
+
+<style scoped>
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+}
+
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.server-info {
+  display: block;
+  margin-top: 0.25rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #55bd7d 0%, #32a06d 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-login:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.debug-info {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.debug-info small {
+  color: #666;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+</style>

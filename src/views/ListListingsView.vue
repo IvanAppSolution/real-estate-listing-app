@@ -103,7 +103,7 @@ onMounted(async () => {
   
   try {
     state.isLoading = true;
-    const response = await api.get('/api/list/myListings');
+    const response = await api.get('/api/list');
     state.lists = response.data.data;
   } catch (error) {
     console.log('Error fetching lists. ', error)
