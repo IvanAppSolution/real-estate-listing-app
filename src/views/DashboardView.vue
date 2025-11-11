@@ -15,7 +15,7 @@ const state = reactive({
 const fetchListings = async () => {
   try {
     state.isLoading = true;
-    console.log('user:', user.value);
+    // console.log('user:', user.value);
     
     if (user.value?.role === 'admin') {
       const response = await api.get('/api/list'); // Remove /api prefix

@@ -40,8 +40,9 @@ const handleSubmit = async () => {
       });
       
       setTimeout(() => {
-        router.replace('/login');
-      }, 2000);
+        void router.push('/login');
+      }, 1500);
+      
       
     } else {
       toast.add({

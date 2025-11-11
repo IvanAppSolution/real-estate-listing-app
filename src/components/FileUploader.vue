@@ -38,7 +38,7 @@ const customUploader = (event: FileUploadUploaderEvent) => {
             }
         })
         .then(response => {
-            console.log('Upload successful:', response.data);
+            // console.log('Upload successful:', response.data);
             const { data } = response.data;
             state.files.push(...data);
             totalSize.value = 0;

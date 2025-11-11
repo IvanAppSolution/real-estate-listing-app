@@ -8,11 +8,11 @@ import {
   setApiServer, 
   type ServerType 
 } from '@/config/api'
-import axios, { updateApiBaseUrl } from '@/axios' // ← Use your existing axios!
+import { updateApiBaseUrl } from '@/axios' // ← Use your existing axios!
 import { useAuth } from '@/composables/useAuth'
 
 
-const { login, token } = useAuth();
+const { login } = useAuth();
 const router = useRouter()
 const toast = useToast()
 
@@ -52,7 +52,7 @@ async function handleLogin() {
 
     // Use your existing axios instance
     const response = await login(email.value,password.value)
- 
+
     if (response.success) {
  
       toast.add({
@@ -62,10 +62,10 @@ async function handleLogin() {
         life: 2000
       })
 
-      router.push('/dashboard')
+      void router.push('/dashboard')
       
     } else {
-      error.value = response.data.message || 'Login failed'
+      error.value = response.message || 'Login failed'
       toast.add({
         severity: 'error',
         summary: 'Login Failed',
@@ -172,6 +172,29 @@ onMounted(() => {
       <div v-if="isDev" class="debug-info">
         <small>API: {{ currentServerInfo?.url }}</small>
       </div>
+      <hr class="h-0 border-t mt-8">
+          <div class="-mt-6 text-center text-xs">
+            <span class="bg-white px-2 text-gray-500">OR</span>
+          </div>
+          <div class="text-center">
+            <Button as="a" href="/register" variant="link">Don't have an account? Register</Button>
+          </div>
+          <div className="flex justify-center items-center">
+            <div className="text-sm text-neutral-500 mt-4">
+              <span className="underline">Test user:</span>
+              <br />
+              <strong>Email:</strong> u1@gmail.com
+              <br />
+              <strong>Password:</strong> pass123
+              <br />
+              <br />
+              <span className="underline">Test admin:</span>
+              <br />
+              <strong>Email:</strong> admin@gmail.com
+              <br />
+              <strong>Password:</strong> pass123
+            </div>
+          </div>
     </div>
   </div>
 </template>

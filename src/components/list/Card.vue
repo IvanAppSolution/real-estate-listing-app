@@ -19,7 +19,7 @@ defineProps({
       <div class="item-container">
         <div class="img-container mx-auto">
           <img
-            :src="list?.images[0] || 'https://via.placeholder.com/300'"
+            :src="list?.images ? (list?.images[0] || 'https://via.placeholder.com/300') : 'https://via.placeholder.com/300'"
             :alt="list?.name"
             class="item-img w-full"
               />                

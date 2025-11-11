@@ -100,9 +100,7 @@ const onFormSubmit = async ({ valid, values } : FormSubmitEvent) => {
 
 onMounted(() => {
   // Initialize any necessary data or state here
-  initialValues.userId = user.value?.id || ""; // Replace with actual user ID
-  console.log('initialValues: ', initialValues);
-  console.log('user: ', user.value);
+  initialValues.userId = user.value?.id || ""; // Replace with actual user ID  
 });
 
 const responsiveOptions = ref([
