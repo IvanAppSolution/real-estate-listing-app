@@ -2,12 +2,12 @@ export const API_SERVERS = {
   express: {
     name: 'Express Server',
     url: 'https://real-estate-listing-server.netlify.app/.netlify/functions',
-    description: 'Original Express backend'
+    description: 'ExpressJs'
   },
   nest: {
     name: 'NestJS Server',
-    url: 'https://real-estate-listing-nest-server.netlify.app/.netlify/functions',
-    description: 'New NestJS backend'
+    url: 'https://real-estate-listing-nest-server.vercel.app',
+    description: 'NestJS'
   },
   local: {
     name: 'Local Development',

@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   
   const isProduction = mode === 'production'
   const isProductionNest = mode === 'production-nest'
-  let baseURL = isProductionNest ? 'https://real-estate-listing-nest-server.netlify.app/.netlify/functions' : 'https://real-estate-listing-server.netlify.app/.netlify/functions';
+  let baseURL = isProductionNest ? 'https://real-estate-listing-nest-server.vercel.app' : 'https://real-estate-listing-server.netlify.app/.netlify/functions';
   const isDevelopment = mode === 'development'
   if (isDevelopment) {
     baseURL = 'http://localhost:5000'

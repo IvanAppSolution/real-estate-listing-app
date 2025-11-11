@@ -18,7 +18,6 @@ function getUserInStorage():User | null{
 }
 
 export const useAuth = () => {
-  console.log('useAuth-token.value: ', token.value)
   const isAuthenticated = computed(() => !!token.value)
 
   const login = async (email: string, password: string): Promise<AuthResponse> => {
@@ -53,13 +52,13 @@ export const useAuth = () => {
 
   const register = async (email: string, password: string, username?: string): Promise<AuthResponse> => {
     try {
-      const response = await api.post('/api/user/register', { // No /api prefix needed
+      const response = await api.post('/api/auth/signUp', { // No /api prefix needed
         email,
         password,
         username: username || email.split('@')[0]
       })
 
-      if (response.data.success) {
+      if (response.data.success == true) {        
         return { success: true, message: response.data.message }
       } else {
         return { success: false, message: response.data.message || 'Registration failed' }

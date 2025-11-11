@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite --mode development",
-    "dev:prod": "vite --mode production",
+    "dev:prod": "vite --mode production-nest",
     "build": "vue-tsc && vite build --mode production",
     "build:dev": "vue-tsc && vite build --mode development",
     "preview": "vite preview",

@@ -78,19 +78,21 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const { isAuthenticated } = useAuth()
-  const protectedRoutes = ['dashboard-home', 'edit-list', 'add-list']
+  // const protectedRoutes = ['dashboard-home', 'edit-list', 'add-list']
   
-  const guestOnlyRoutes = ['login', 'register']
+  const guestOnlyRoutes = ['home', 'login', 'register'];
   
-  if (protectedRoutes.includes(to.name as string)) {
+  if (!guestOnlyRoutes.includes(to.name as string)) {
     if (!isAuthenticated.value) {
       next({ name: 'login', query: { redirect: to.fullPath } })
     } else {
       next()
     }
-  } else if (guestOnlyRoutes.includes(to.name as string) && isAuthenticated.value) {
-    next({ name: 'dashboard-home' })
-  } else {
+  } 
+  // else if (guestOnlyRoutes.includes(to.name as string) && isAuthenticated.value) {
+  //   next({ name: 'dashboard-home' })
+  // } 
+  else {
     next()
   }
 })
